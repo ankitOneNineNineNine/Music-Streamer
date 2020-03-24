@@ -1,11 +1,9 @@
 import React from 'react'
-import img1 from './images/img1.jpeg'
-import img2 from './images/image2.jpg'
 import './homepage.css'
 import './homepage2.css'
 import icon from './../Navbar/bootstrap-solid.svg'
 import { NavLink } from 'react-router-dom'
-// import img3 from '/images/img1.jpeg'
+
 function HomePage() {
     return (
         <>
@@ -20,9 +18,9 @@ function HomePage() {
                     <div className="footer-social-icons">
                         <h4 className="inline">Follow us on</h4>
                         <ul className="social-icons center inline">
-                            <li><a href="" className="social-icon"> <i className="fa fa-facebook"></i></a></li>
-                            <li><a href="" className="social-icon"> <i className="fa fa-twitter"></i></a></li>
-                            <li><a href="" className="social-icon"> <i className="fa fa-instagram"></i></a></li>
+                        <li><a href="https://www.facebook.com" className="social-icon"> <i className="fa fa-facebook"></i></a></li>
+                                <li><a href="https://www.twitter.com" className="social-icon"> <i className="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com" className="social-icon"> <i className="fa fa-instagram"></i></a></li>
 
 
                         </ul>
@@ -73,11 +71,11 @@ function HomePage() {
                 <div className="footer-left">
 
                     <a className="navbar-brand" href="#">
-                        <img src={icon} width="30" height="30" className="d-inline-block align-top" alt="" />
+                        <img src={icon} width="30" height="30" className="d-inline-block align-top" alt="logo" />
                         LOTIFY
   </a>
-
-                    <p className="footer-company-name">Blotify © 2020</p>
+                    <p className="footer-company-name" style={{ color: 'white' }}>We understand your song's choice</p>
+                    <p className="footer-company-name" style={{ color: 'white' }}>Blotify © 2020</p>
                 </div>
 
                 <div className="footer-center">
@@ -103,18 +101,19 @@ function HomePage() {
 
                     <p className="footer-company-about">
                         <span>About the company</span>
-                        Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
+                        Blotify is a web service which provides music streaming service. In addition to regular
+                        streaming service, it provides an emotion based service which accepts the user emotions
+                        and based on that, suggests the playlist or the favorites from their own playlist.
 				</p>
 
                     <div className='tc f4 iconbody'>
 
                         <div className="footer-social-icons">
-                            <h4 className="inline">Follow us on</h4>
-                            <ul className="social-icons center inline">
-                                <li><a href="" className="social-icon"> <i className="fa fa-facebook"></i></a></li>
-                                <li><a href="" className="social-icon"> <i className="fa fa-twitter"></i></a></li>
-                                <li><a href="" className="social-icon"> <i className="fa fa-instagram"></i></a></li>
-
+                            <h4 className="inline tc">Follow us on</h4>
+                            <ul className="social-icons center inline tc">
+                                <li><a href="https://www.facebook.com" className="social-icon"> <i className="fa fa-facebook"></i></a></li>
+                                <li><a href="https://www.twitter.com" className="social-icon"> <i className="fa fa-twitter"></i></a></li>
+                                <li><a href="https://www.instagram.com" className="social-icon"> <i className="fa fa-instagram"></i></a></li>
 
                             </ul>
                         </div>

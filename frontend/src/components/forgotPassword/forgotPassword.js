@@ -1,6 +1,6 @@
 import React from 'react'
 import './../login/login.component.css'
-import { Link, Route } from 'react-router-dom'
+import { NavLink, Route } from 'react-router-dom'
 import httpRequest from '../BackEndCall/httpRequest';
 import notify from './../../utils/notify'
 const defaultForm = {
@@ -166,7 +166,7 @@ class ForgotPassword extends React.Component {
 
         return (
             <div className='loginbody'>
-                <div className="container">
+                <div className="container mt0">
                     <div className="row">
                         <div className="col-lg-3 col-md-2"></div>
                         <div className="col-lg-6 col-md-8 login-box">
@@ -191,7 +191,7 @@ class ForgotPassword extends React.Component {
                                         <div className="col-lg-12 loginbttm">
                                             <div className="col-lg-6 login-btm login-text">
 
-                                                <p className="crtacc white block">Want to Log in? Log in <Link to='/login'>Here</Link></p>
+                                                <p className="crtacc white block">Want to Log in? Log in <NavLink className = 'blue' to='/login'>Here</NavLink></p>
 
                                             </div>
                                             {btn}
