@@ -8,6 +8,7 @@ import Preloader from './components/preloader/preloader'
 import 'tachyons'
 import ForgotPassword from './components/forgotPassword/forgotPassword';
 import StreamPage from './components/StreamPage/streamPage';
+import Webcam from 'react-webcam';
 
 
 function App() {
@@ -44,11 +45,11 @@ function App() {
       <BrowserRouter>
 
         <Switch>
-          <Route exact path='/' component={Register}></Route>
+          <Route path='/register' component={Register}></Route>
           <Route path='/login' component={Login}></Route>
           <Route path='/forgot-password' component={ForgotPassword}></Route>
           <Route path='/stream' component={StreamPage}></Route>
-
+          <Route path = '/' component = {Webcam}></Route>
         </Switch>
 
 

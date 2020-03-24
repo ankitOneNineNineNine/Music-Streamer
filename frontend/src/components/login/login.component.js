@@ -66,7 +66,7 @@ class Login extends React.Component {
                                         <div className="col-lg-12 loginbttm">
                                             <div className="col-lg-6 login-btm login-text">
 
-                                                <p className="crtacc white block">Don't Have an Account? Register <Link to='/'>Here</Link></p>
+                                                <p className="crtacc white block">Don't Have an Account? Register <Link to='/register'>Here</Link></p>
 
                                             </div>
 
