@@ -11,6 +11,8 @@ import StreamPage from './components/StreamPage/streamPage';
 import Webcam from 'react-webcam';
 import HomePage from './components/Home/homePage';
 import Navbar from './components/Navbar/Navbar'
+import Plans from './components/plans/plans';
+import Help from './components/help/help';
 
 function App() {
   const NavRoute = ({ component: Pages, ...abc }) => {
@@ -48,6 +50,8 @@ function App() {
           <Route path='/login' component={Login}></Route>
           <Route path='/forgot-password' component={ForgotPassword}></Route>
           <NavRoute path='/stream' component={StreamPage}></NavRoute>
+          <NavRoute path='/plans' component={Plans}></NavRoute>
+          <NavRoute path='/help' component={Help}></NavRoute>
           <NavRoute exact path='/' component={HomePage}></NavRoute>
         </Switch>
 

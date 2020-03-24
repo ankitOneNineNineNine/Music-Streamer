@@ -11,10 +11,20 @@ var path = require('path')
 var util = require('util');
 require('./db')
 var app = express();
-
+var jsmediatags = require("jsmediatags");
+new jsmediatags.Reader("./songs/Imagine Dragons - Believer.mp3")
+    .setTagsToRead(["title", "artist"])
+    .read({
+        onSuccess: function (tag) {
+            console.log(tag);
+        },
+        onError: function (error) {
+            console.log(':(', error.type, error.info);
+        }
+    });
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -22,12 +32,12 @@ app.use('/songs', express.static(path.join(__dirname, 'songs')));
 
 app.use('/auth', authRoute)
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     res.status(err.status || 400);
     res.json({
         message: err.message,
@@ -35,12 +45,12 @@ app.use(function(err, req, res, next) {
     });
 });
 
-app.listen(config.port, function(err, done){
-    if(err){
+app.listen(config.port, function (err, done) {
+    if (err) {
         console.log('server lost');
     }
-    else{
-        console.log('server connected', )
+    else {
+        console.log('server connected')
     }
 })
 

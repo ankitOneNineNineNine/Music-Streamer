@@ -1,5 +1,6 @@
 import React from 'react'
 import httpRequest from '../BackEndCall/httpRequest';
+
 class StreamPage extends React.Component {
     constructor() {
         super();
@@ -36,6 +37,7 @@ class StreamPage extends React.Component {
                     </td>
                     <td>
                     <audio controls autoplay>
+                    
                     <source src='http://localhost:1250/songs/The Chainsmokers & Coldplay - Something Just Like This.mp3' type='audio/mp3' />
                 </audio>
                     </td>
