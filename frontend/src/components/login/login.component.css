@@ -1,12 +1,10 @@
-body{
-    margin-top: 0;
-}
+
 .loginbody {
     background: #222D32;
     font-family: 'Roboto', sans-serif;
     height: 100%;
-    
-}
+    margin-top: 0;
+}   
 
 .login-box {
     margin-top: 75px;

@@ -30,7 +30,7 @@ function HomePage() {
                 </div>
 
 
-                <NavLink className="btn btn-primary btn-lg fr" to="#" role="button">Learn more</NavLink>
+
             </div>
 
             <div className="container text-center">
@@ -67,7 +67,7 @@ function HomePage() {
                 </div>
             </div>
 
-          
+
             <footer className="footer-distributed">
 
                 <div className="footer-left">

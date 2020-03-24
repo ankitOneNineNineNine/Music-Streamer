@@ -1,7 +1,7 @@
 import React from 'react'
 import './register.component.css'
 import httpRequest from '../BackEndCall/httpRequest';
-import { Link, Route } from 'react-router-dom'
+import { Link, Route, NavLink } from 'react-router-dom'
 const defaultForm = {
     fullName: null,
     email: null,
@@ -172,7 +172,7 @@ class Register extends React.Component {
         return (
 
             <div className='loginbody'>
-                <div className="container">
+                <div className="container" style = {{marginTop: '0'}}>
                     <div className="row">
                         <div className="col-lg-3 col-md-2"></div>
                         <div className="col-lg-6 col-md-8 login-box">
@@ -210,7 +210,7 @@ class Register extends React.Component {
                                         </div>
                                         <div className="col-lg-12 loginbttm">
                                             <div className="col-lg-6 login-btm login-text">
-                                                <p className="crtacc white block">Already Have an Account? Log in <Link to='/login'>Here</Link></p>
+                                                <p className="crtacc white block">Already Have an Account? Log in <NavLink className = 'blue' to='/login'>Here</NavLink></p>
                                             </div>
                                             {btn}
 

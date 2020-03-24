@@ -1,6 +1,6 @@
 import React from 'react'
 import './login.component.css'
-import { Link, Route } from 'react-router-dom'
+import { Link, Route, NavLink } from 'react-router-dom'
 import httpRequest from '../BackEndCall/httpRequest';
 import notify from './../../utils/notify'
 class Login extends React.Component {
@@ -38,7 +38,7 @@ class Login extends React.Component {
     render() {
         return (
             <div className='loginbody'>
-                <div className="container">
+                <div className="container" style = {{marginTop: '0'}}>
                     <div className="row">
                         <div className="col-lg-3 col-md-2"></div>
                         <div className="col-lg-6 col-md-8 login-box">
@@ -66,7 +66,7 @@ class Login extends React.Component {
                                         <div className="col-lg-12 loginbttm">
                                             <div className="col-lg-6 login-btm login-text">
 
-                                                <p className="crtacc white block">Don't Have an Account? Register <Link to='/register'>Here</Link></p>
+                                                <p className="crtacc white block">Don't Have an Account? Register <NavLink className = 'blue' to='/register'>Here</NavLink></p>
 
                                             </div>
 
@@ -75,7 +75,7 @@ class Login extends React.Component {
                                             </div>
                                             <div className="col-lg-6 login-btm login-text">
 
-                                                <p className="crtacc white block">Forgot password? <Link to='/forgot-password'>Here</Link></p>
+                                                <p className="crtacc white block">Forgot password? <NavLink className = 'blue' to='/forgot-password'>Here</NavLink> </p>
 
                                             </div>
                                         </div>
