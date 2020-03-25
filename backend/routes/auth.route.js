@@ -8,9 +8,9 @@ const fs = require('fs');
 var util = require('util');
 var userModel = require('./../models/user.model');
 var upload = require('./../middlewares/upload');
-var randomString = require('randomstring');
 var nodemailer = require('nodemailer');
-var songModel = require('./../models/songList')
+var songModel = require('./../models/songList');
+const randomString = require('randomstring')
 const sender = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
@@ -57,10 +57,10 @@ router.route('/login')
                     if (isMatched) {
                         var token = jwt.sign({
                             id: user._id,
-                            role: user.role
+                            role: user.planRole,
                         }, config.jwtSecret);
                         res.status(200).json({
-                            user: { userName: user.userName, email: user.email },
+                            user: { userName: user.userName, email: user.email, role: user.planRole },
                             token: token,
 
                         })
@@ -83,12 +83,16 @@ router.route('/login')
     })
 router.route('/register')
     .post(function (req, res, next) {
-
+console.log('here')
         var newUser = new userModel({});
         newUser.fullName = req.body.fullName;
         newUser.email = req.body.email;
         newUser.userName = req.body.userName;
         newUser.password = hash.generate(req.body.password);
+        const RoleToken = randomString.generate(25);
+        const RoleTokenExpiry = new Date(Date.now(1000 * 60 * 60 * 24) + (1000 * 60 * 4));;
+        newUser.RoleToken = RoleToken;
+        newUser.RoleTokenExpiry = RoleTokenExpiry;
 
 
         newUser
@@ -188,7 +192,7 @@ router.post('/reset-password/:token', function (req, res, next) {
                     msg: 'Invalid or Expired token'
                 })
             }
-            console.log('here')
+
             user.password = hash.generate(req.body.password)
             user.passwordResetToken = null,
                 user.passwordResetExpiry = null,

@@ -51,8 +51,8 @@ function Navbar(props) {
         <div>
 
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <NavLink class="navbar-brand" to='/'>
-                    <img src={icon} width="30" height="30" class="d-inline-block align-top" alt="" />
+                <NavLink className="navbar-brand" to='/'>
+                    <img src={icon} width="30" height="30" className="d-inline-block align-top" alt="" />
                     LOTIFY
                 </NavLink>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

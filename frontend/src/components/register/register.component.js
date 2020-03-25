@@ -130,6 +130,7 @@ class Register extends React.Component {
             this.setState({
                 isSubmitting: true
             })
+            
             httpRequest.post('/auth/register', { body: this.state.data })
                 .then((data) => {
 
@@ -167,7 +168,7 @@ class Register extends React.Component {
         <button type="submit" className="btn btn-outline-primary" disabled>Register</button>
     </div>
         :     <div className="col-lg-6 login-btm login-button">
-        <button type="submit" className="btn btn-outline-primary" onClick={this.handleSubmit}>Re</button>
+        <button type="submit" className="btn btn-outline-primary" onClick={this.handleRegister}>Register</button>
     </div>
         return (
 

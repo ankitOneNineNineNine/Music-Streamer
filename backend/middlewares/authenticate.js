@@ -1,6 +1,6 @@
 var jwt = require('jsonwebtoken');
 var config = require('./../routes/index')
-const UserModel = require('./../model/users.model');
+const userModel = require('./../models/user.model');
 
 module.exports = function (req, res, next) {
     var token;
@@ -23,7 +23,7 @@ module.exports = function (req, res, next) {
             if (err) {
                 return next(err);
             }
-            UserModel.findById(done.id)
+            userModel.findById(done.id)
                 .exec(function (err, user) {
                     if (err) {
                         return next(err);

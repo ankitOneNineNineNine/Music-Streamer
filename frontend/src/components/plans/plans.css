@@ -28,10 +28,12 @@ ul {
   padding: 0;
   list-style: none;
 }
+
 img {
   max-width: 100%;
   height: auto;
 }
+
 /*--blog----*/
 
 .sec-title {
@@ -47,28 +49,22 @@ img {
   color: #ff8a01;
   font-weight: 500;
   background: rgb(247, 0, 104);
-  background: -moz-linear-gradient(
-    to left,
-    rgba(247, 0, 104, 1) 0%,
-    rgba(68, 16, 102, 1) 25%,
-    rgba(247, 0, 104, 1) 75%,
-    rgba(68, 16, 102, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    to left,
-    rgba(247, 0, 104, 1) 0%,
-    rgba(68, 16, 102, 1) 25%,
-    rgba(247, 0, 104, 1) 75%,
-    rgba(68, 16, 102, 1) 100%
-  );
-  background: linear-gradient(
-    to left,
-    rgba(247, 0, 104) 0%,
-    rgba(68, 16, 102, 1) 25%,
-    rgba(247, 0, 104, 1) 75%,
-    rgba(68, 16, 102, 1) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F70068', endColorstr='#441066',GradientType=1 );
+  background: -moz-linear-gradient(to left,
+      rgba(247, 0, 104, 1) 0%,
+      rgba(68, 16, 102, 1) 25%,
+      rgba(247, 0, 104, 1) 75%,
+      rgba(68, 16, 102, 1) 100%);
+  background: -webkit-linear-gradient(to left,
+      rgba(247, 0, 104, 1) 0%,
+      rgba(68, 16, 102, 1) 25%,
+      rgba(247, 0, 104, 1) 75%,
+      rgba(68, 16, 102, 1) 100%);
+  background: linear-gradient(to left,
+      rgba(247, 0, 104) 0%,
+      rgba(68, 16, 102, 1) 25%,
+      rgba(247, 0, 104, 1) 75%,
+      rgba(68, 16, 102, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#F70068', endColorstr='#441066', GradientType=1);
   color: transparent;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -99,11 +95,13 @@ img {
   color: #ffffff;
   -webkit-text-fill-color: inherit;
 }
+
 .pricing-section {
   position: relative;
   padding: 100px 0 80px;
   overflow: hidden;
 }
+
 .pricing-section .outer-box {
   max-width: 1100px;
   margin: 0 auto;
@@ -218,6 +216,7 @@ img {
   padding-left: 30px;
   border-bottom: 1px dashed #dddddd;
 }
+
 .pricing-block .features li:before {
   position: absolute;
   left: 0;
@@ -235,6 +234,7 @@ img {
   font-family: "Font Awesome 5 Free";
   margin-top: -8px;
 }
+
 .pricing-block .features li.false:before {
   color: #e1137b;
   content: "\f057";
@@ -325,4 +325,34 @@ img {
   background: none;
   border-radius: 0px;
   border-color: #ffc20b;
+}
+
+.sec-title .text-center>.blink {
+  width: 200px;
+  height: 50px;
+  padding: 15px;
+  text-align: center;
+  text-decoration: underline;
+  line-height: 50px;
+}
+
+.blinkSpan>h2 {
+  font-size: 25px;
+  font-family: cursive;
+  color: red;
+  animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: .5;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
