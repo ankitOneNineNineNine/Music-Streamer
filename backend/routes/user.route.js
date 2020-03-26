@@ -180,7 +180,8 @@ router.route('/payForRole')
                 var updateRolesToken = map_user_request(user, {
                     RoleToken,
                     RoleTokenExpiry,
-                    status: 'enabled'
+                    status: 'enabled',
+                    planRole: RoleChosen
 
                 })
 
