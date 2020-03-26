@@ -18,6 +18,9 @@ const songSchema = new Schema({
         type: String,
         
     },
+    link: {
+        type : String,
+    }
 }, {
     timestamps: true,
 })

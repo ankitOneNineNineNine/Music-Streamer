@@ -44,7 +44,7 @@ class Plans extends React.Component {
        
         return (
             <>
-            <section className="pricing-section">
+            <section style = {{zIndex: '-1'}} className="pricing-section">
                 <div className="container mt0">
                     <div className="sec-title text-center">
                     <div className="blink">
@@ -57,7 +57,7 @@ class Plans extends React.Component {
                     <div className="outer-box">
                         <div className="row">
 
-                            <div className="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp ">
+                            <div  className="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp ">
                                 <div className="inner-box">
                                     <div className="icon-box">
                                         <div className="icon-outer"><i className="fa fa-music"></i></div>
@@ -82,7 +82,7 @@ class Plans extends React.Component {
                             </div>
 
 
-                            <div className="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="400ms">
+                            <div  className="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="400ms">
                                 <div className="inner-box">
                                     <div className="icon-box">
                                         <div className="icon-outer"><i className="fa fa-music"></i></div>
@@ -107,7 +107,7 @@ class Plans extends React.Component {
                             </div>
 
 
-                            <div className="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="800ms">
+                            <div  className="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="800ms">
                                 <div className="inner-box">
                                     <div className="icon-box">
                                         <div className="icon-outer"><i className="fa fa-music"></i></div>

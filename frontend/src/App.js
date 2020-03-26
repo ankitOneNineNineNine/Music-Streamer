@@ -20,13 +20,16 @@ function App() {
       <Route  {...abc} render={(props) => {
         return (
           <>
-            <div className='bg-gray black'>
+            <div style = {{zIndex: '150'}}>
               <Navbar />
+            </div>
+            <div style = {{marginTop: '3%'}}>
+              <Pages {...props} />
+
+
             </div>
 
 
-
-            <Pages {...props} />
 
 
 

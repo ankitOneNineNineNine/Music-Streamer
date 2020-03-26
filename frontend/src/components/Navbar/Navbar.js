@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, Route, Redirect, BrowserRouter, withRouter} from 'react-router-dom';
+import { NavLink, Route, Redirect, BrowserRouter, withRouter } from 'react-router-dom';
 import icon from './bootstrap-solid.svg'
 import { GoogleLogout } from 'react-google-login';
 import notify from './../../utils/notify'
@@ -46,11 +46,13 @@ function Navbar(props) {
             <NavLink className='nav-link' to='/stream'> Music Player <span className="sr-only">(current)</span></NavLink>
         </li>
         : ''
-      
+
     return (
         <div>
 
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{
+                position: 'fixed', top: '0', width: '100%'
+            }}>
                 <NavLink className="navbar-brand" to='/'>
                     <img src={icon} width="30" height="30" className="d-inline-block align-top" alt="" />
                     LOTIFY
@@ -60,7 +62,16 @@ function Navbar(props) {
                 </button>
 
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav mr-auto">
+                    <ul className="navbar-nav mr-auto"
+                        style={{
+                            float: 'left',
+                            
+                            textDecoration: 'none',
+
+
+                        }}
+
+                    >
 
                         <li className="nav-item">
                             <NavLink className='nav-link' to='/'>Home <span className="sr-only">(current)</span></NavLink>
