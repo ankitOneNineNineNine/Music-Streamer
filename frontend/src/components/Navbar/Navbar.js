@@ -51,7 +51,7 @@ function Navbar(props) {
         <div>
 
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{
-                position: 'fixed', top: '0', width: '100%'
+                position: 'fixed', top: '0', width: '100%', zIndex: '1'
             }}>
                 <NavLink className="navbar-brand" to='/'>
                     <img src={icon} width="30" height="30" className="d-inline-block align-top" alt="" />

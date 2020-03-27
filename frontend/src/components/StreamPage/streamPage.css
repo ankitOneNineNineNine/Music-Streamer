@@ -17,3 +17,10 @@
   .Tilt {
     background: linear-gradient(89deg, #FF5EDF 0%, #04CBDE 100%);
   }
+
+.react-jinke-music-player-main .img-rotate-pause {
+        height: 100%;
+}
+.react-jinke-music-player-main .cover {
+  height: 100%;
+}
