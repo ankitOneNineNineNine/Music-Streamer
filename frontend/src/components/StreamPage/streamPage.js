@@ -1,6 +1,6 @@
 import React from 'react'
 import httpRequest from '../BackEndCall/httpRequest';
-import ReactJkMusicPlayer from "react-jinke-music-player";
+
 import FileSaver, { saveAs } from 'file-saver';
 import "react-jinke-music-player/assets/index.css";
 import Tilt from 'react-tilt'
@@ -11,49 +11,13 @@ import demotivated from './images/demotivated.webp'
 import './streamPage.css'
 import { withRouter } from 'react-router-dom';
 import notify from '../../utils/notify';
-const options = {
-    defaultPlayIndex: 0,
-    theme: 'dark',
-    clearPriorAudioLists: true,
-    autoPlayInitLoadPlayList: true,
-    preload: true,
-    remember: false,
-    remove: false,
-    defaultPosition: {
-        top: 100,
-        left: 0,
-    },
-    mode: 'full',
-    once: false,
-    autoPlay: false,
-    toggleMode: true,
-    showMiniModeCover: true,
-    showMiniProcessBar: true,
-    drag: true,
-    seeked: true,
-    showProgressLoadBar: true,
-    showPlay: true,
-    showReload: true,
-    showDownload: true,
-    showPlayMode: true,
-
-    defaultVolume: 1,
-    playModeShowTime: 600,
-    loadAudioErrorPlayNext: true,
-    autoHiddenCover: true,
-    spaceBar: true,
-    onAudioDownload() {
-        notify.showSuccess('audio downloaded')
-    },
-
-
-}
-
+import Sidebar from './sidebar/sidebar';
+import AudioPlayer from './audioplayer/audioPlayer'
+import SongPage from './SongsPage/songPage';
 class StreamPage extends React.Component {
 
     constructor() {
         super();
-        this.audioInstance = null
         this.state = {
             emotionAttribute: '',
             songArray: [
@@ -75,18 +39,18 @@ class StreamPage extends React.Component {
             ],
             dayMessage: '',
             changeClass: {
-                visibility: 'hidden'
+                display: 'none'
             },
 
         }
     }
     changeClass = () => {
 
-        if (this.state.changeClass.visibility === 'hidden') {
+        if (this.state.changeClass.display === 'none') {
             this.setState(prev => ({
                 changeClass: {
                     ...prev.changeClass,
-                    visibility: 'visible'
+                    display: 'inline-block'
                 },
 
             }))
@@ -95,7 +59,7 @@ class StreamPage extends React.Component {
             this.setState(prev => ({
                 changeClass: {
                     ...prev.changeClass,
-                    visibility: 'hidden'
+                    display: 'none'
                 },
 
             }))
@@ -123,7 +87,22 @@ class StreamPage extends React.Component {
         this.setState({
             emotionAttribute: attribute
         })
+        this.setState(prev => ({
+            changeClass: {
+                ...prev.changeClass,
+                display: 'none'
+            },
 
+        }))
+    }
+    goBack = () => {
+        this.setState(prev => ({
+            changeClass: {
+                ...prev.changeClass,
+                display: 'none'
+            },
+
+        }))
     }
     savefile = (dopwnloadInfo) => {
 
@@ -136,7 +115,7 @@ class StreamPage extends React.Component {
 
     render() {
         var emotion = 'happy'
-        if(this.state.emotionAttribute){
+        if (this.state.emotionAttribute) {
             emotion = this.state.emotionAttribute
         }
         var playlist = emotion === 'happy' ?
@@ -147,7 +126,7 @@ class StreamPage extends React.Component {
                     this.state.songArray.filter(songs => songs.emotion === 'inLove').map(songs => songs)
                     : emotion === 'demotivated' ?
                         this.state.songArray.filter(songs => songs.emotion === 'happy').map(songs => songs)
-                            : []
+                        : []
         var status = localStorage.getItem('status')
         var token = localStorage.getItem('token')
         if (!token) {
@@ -157,45 +136,72 @@ class StreamPage extends React.Component {
 
             if (status === 'enabled') {
                 var content =
-                    <div className='tc mt5' style={{ zIndex: '-1' }}>
+                    <>
+                        
+                        <div className='tc mt0 pa0' style={{ zIndex: '-1' }}>
+                            <div>
+                                <nav class="menu">
+                                    <ol>
+                                        <li class="menu-item"><a href="#0">Emotion Detection</a>
+                                            <ol class="sub-menu">
+                                                <li class="menu-item"><a href="#0" onClick={this.changeClass}>Emoji Picker</a></li>
+                                                <li class="menu-item"><a href="#0">Face Detection</a></li>
 
-                        <h2 className='' >How are you feeling? Choose the emojees to express... </h2> <button onClick={this.changeClass}>Click Here!</button>
-                        <div className='ma4 mt0 dib' style={this.state.changeClass}>
-                            <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
-                                <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={happy} alt='happy' /> </div>
-                                <p className='br3 shadow blue'>Happy</p>
-                            </Tilt>
+                                            </ol>
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+                            <div className='pa4 br3 bg-light shadow' style={this.state.changeClass}>
 
+                                <div className='ma4 mt0 dib '>
+
+                                    <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
+                                        <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={happy} alt='happy' /> </div>
+                                        <p className='br3 shadow blue'>Happy</p>
+                                    </Tilt>
+
+                                </div>
+                                <div className='ma4 mt0 dib '>
+                                    <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
+                                        <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={sad} alt='Sad' /> </div>
+                                        <p className='br3 shadow blue'>Sad</p>
+                                    </Tilt>
+
+                                </div>
+                                <div className='ma4 mt0 dib '>
+                                    <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
+                                        <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={loved} alt='inLove' /> </div>
+                                        <p className='br3 shadow blue'>In Love</p>
+                                    </Tilt>
+
+                                </div>
+                                <div className='ma4 mt0 dib '>
+                                    <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
+                                        <div className="Tilt-iner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={demotivated} alt='Demotivated' /> </div>
+                                        <p className='br3 shadow blue'>Demotivated</p>
+                                    </Tilt>
+                                </div>
+
+                                <nav class="menu">
+                                    <ol>
+                                        <li className="menu-item db mt4" onClick={this.goBack}><a href="#0">Close</a>
+                                        </li>
+                                    </ol>
+                                </nav>
+                            </div>
+                            <div>
+
+                            </div>
+
+                            <AudioPlayer playlist={playlist} savefile={this.savefile} />
                         </div>
-                        <div className='ma4 mt0 dib ' style={this.state.changeClass}>
-                            <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
-                                <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={sad} alt='Sad' /> </div>
-                                <p className='br3 shadow blue'>Sad</p>
-                            </Tilt>
-
-                        </div>
-                        <div className='ma4 mt0 dib ' style={this.state.changeClass}>
-                            <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
-                                <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={loved} alt='inLove' /> </div>
-                                <p className='br3 shadow blue'>In Love</p>
-                            </Tilt>
-
-                        </div>
-                        <div className='ma4 mt0 dib ' style={this.state.changeClass}>
-                            <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
-                                <div className="Tilt-iner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={demotivated} alt='Demotivated' /> </div>
-                                <p className='br3 shadow blue'>Demotivated</p>
-                            </Tilt>
-
-                        </div>
-
-                        <ReactJkMusicPlayer {...options} audioLists={playlist} getAudioInstance={instance => this.audioInstance = instance} customDownloader={this.savefile} />
 
 
+                        <SongPage />
 
 
-
-                    </div>
+                    </>
             }
             else {
                 var content = <p>Please upgrade your package or do the payment</p>

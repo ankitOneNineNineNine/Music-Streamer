@@ -13,6 +13,7 @@ import HomePage from './components/Home/homePage';
 import Navbar from './components/Navbar/Navbar'
 import Plans from './components/plans/plans';
 import Help from './components/help/help';
+import Sidebar from './components/StreamPage/sidebar/sidebar';
 
 function App() {
   const NavRoute = ({ component: Pages, ...abc }) => {
@@ -44,6 +45,35 @@ function App() {
 
 
   }
+  const SideBarRoute = ({ component: Pages, ...abc }) => {
+    return (
+      <Route  {...abc} render={(props) => {
+        return (
+          <>
+            <div style = {{zIndex: '150', marginTop: '0'}}>
+              <Sidebar />
+            </div>
+            <div style = {{marginTop: '3%'}}>
+              <Pages {...props} />
+
+
+            </div>
+
+
+
+
+
+          </>
+        )
+
+
+      }} />
+
+
+    )
+
+
+  }
   return (
     <div className="App">
       <BrowserRouter>
@@ -52,7 +82,7 @@ function App() {
           <Route path='/register' component={Register}></Route>
           <Route path='/login' component={Login}></Route>
           <Route path='/forgot-password' component={ForgotPassword}></Route>
-          <NavRoute path='/stream' component={StreamPage}></NavRoute>
+          <SideBarRoute path='/stream' component={StreamPage}></SideBarRoute>
           <NavRoute path='/plans' component={Plans}></NavRoute>
           <NavRoute path='/help' component={Help}></NavRoute>
           <NavRoute exact path='/' component={HomePage}></NavRoute>
