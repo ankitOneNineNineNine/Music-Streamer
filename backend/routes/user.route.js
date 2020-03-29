@@ -2,6 +2,7 @@ const router = require('express').Router();
 const userModel = require('./../models/user.model')
 const hash = require('password-hash')
 const randomString = require('randomstring')
+const upload = require('./../middlewares/upload')
 function map_user_request(user, userDetails) {
     if (userDetails.fullName)
         user.fullName = userDetails.fullName;
@@ -14,22 +15,49 @@ function map_user_request(user, userDetails) {
     if (userDetails.RoleTokenExpiry)
         user.RoleTokenExpiry = userDetails.RoleTokenExpiry
     if (userDetails.status)
-        user.status =userDetails.status
+        user.status = userDetails.status
+    if (userDetails.image)
+        user.image.unshift(userDetails.image)
     return user;
 }
 
-router.route('/')
-    .get(function (req, res, next) {
+router.route('/uploadPhoto')
+    .post(upload.single('img'), function (req, res, next) {
+        var mimeType = req.file.mimetype.split('/')[0];
+        if (mimeType != 'image') {
+            fs.unlink(path.join(process.cwd(), 'uploads/images/' + req.file.filename), function (err, done) {
+                if (err) {
+                    console.log('file removing error');
+                } else {
+                    console.log('file removed');
+                }
+            });
+            return next({
+                msg: 'invalid file format'
+            });
+        }
+        else {
+            var filename = req.file.filename
+        
+            req.body.image = filename
+    
+            user = req.loggedInUser
+            var updateProfileUser = map_user_request(user, req.body)
 
-        var uid = req.params.id
-        userModel
-            .find()
-            .exec(function (err, users) {
+            updateProfileUser.save(function (err, uploaded) {
                 if (err) {
                     return next(err);
                 }
-                res.status(200).json(users);
+                res.json(uploaded);
+
             })
+
+        }
+    })
+router.route('/')
+    .get(function (req, res, next) {
+
+        res.json(req.loggedInUser)
     })
 
 
@@ -191,7 +219,7 @@ router.route('/payForRole')
                     }
                     res.json(updated);
                 })
-                
+
 
             })
 

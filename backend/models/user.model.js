@@ -23,7 +23,9 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    image: String,
+    image: [{
+        type: String,
+    }],
     planRole: {
         type: Number,
         enum: [1,2,3],

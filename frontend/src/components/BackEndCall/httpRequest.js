@@ -78,6 +78,7 @@ function upload(method, url, data, files) {
         const xhr = new XMLHttpRequest();
         const formData = new FormData();
         if (files && files.length) {
+            console.log(files)
             formData.append('img', files[0], files[0].name)
         }
         for (let key in data) {

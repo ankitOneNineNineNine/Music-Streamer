@@ -14,6 +14,7 @@ import Navbar from './components/Navbar/Navbar'
 import Plans from './components/plans/plans';
 import Help from './components/help/help';
 import Sidebar from './components/StreamPage/sidebar/sidebar';
+import UploadImage from './components/uploadImage/uploadimage';
 
 function App() {
   const NavRoute = ({ component: Pages, ...abc }) => {
@@ -53,7 +54,7 @@ function App() {
             <div style = {{zIndex: '150', marginTop: '0'}}>
               <Sidebar />
             </div>
-            <div style = {{marginTop: '3%'}}>
+            <div style = {{zIndex: '150', marginTop: '0'}}>
               <Pages {...props} />
 
 
@@ -83,6 +84,7 @@ function App() {
           <Route path='/login' component={Login}></Route>
           <Route path='/forgot-password' component={ForgotPassword}></Route>
           <SideBarRoute path='/stream' component={StreamPage}></SideBarRoute>
+          <SideBarRoute path='/settings' component={UploadImage}></SideBarRoute>
           <NavRoute path='/plans' component={Plans}></NavRoute>
           <NavRoute path='/help' component={Help}></NavRoute>
           <NavRoute exact path='/' component={HomePage}></NavRoute>
