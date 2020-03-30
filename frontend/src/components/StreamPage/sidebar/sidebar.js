@@ -10,13 +10,21 @@ class Sidebar extends React.Component {
     super();
     this.state = {
       image: [],
+      toggleClass: {
+        display: ''
+      },
+      contentClass: {
+        width: '100%',
+        marginLeft: '500',
+        transition: 'all 0.4s',
+      }
     }
   }
   componentDidMount() {
     httpRequest.get(`/user/`, {}, true)
       .then(data => {
         this.setState({
-          image : data.image
+          image: data.image
         })
 
       })
@@ -27,25 +35,53 @@ class Sidebar extends React.Component {
     this.props.history.push('/')
     notify.showSuccess('Signed Out')
   }
+  onToggle = () => {
+    if (this.state.toggleClass.display === '') {
+      var css = 'none'
+    }
+    if (this.state.toggleClass.display === 'none') {
+      var css = ''
+    }
+    this.setState(prev => ({
+      toggleClass: {
+        ...prev.toggleClass,
+        display: css
+      }
+    }))
+ 
+  
+
+      this.setState(prev => ({
+        contentClass: {
+          width: '100%',
+          margin: '500',
+          transition: 'all 0.4s',
+        }
+      }))
+    
+
+
+  }
 
   render() {
+
     var allImg = 'http://localhost:1250/uploads/users/images/'
-  
-    
-  const profileUrl = `${allImg}${this.state.image[0]}`
+    const profileUrl = `${allImg}${this.state.image[0]}`
     console.log(profileUrl)
     var userName = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).userName : 'userName'
     var email = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).email : 'email'
+
     return (
       <div>
 
-        <div className="vertical-nav bg-white bg-dark" id="sidebar">
+        <div className="vertical-nav bg-white bg-dark" id="sidebar" style={this.state.toggleClass}>
           <div className="py-4 px-3 mb-4 bg-light">
-            <div className="media d-flex align-items-center"><img src={profileUrl}
-              alt="..." width="65" className="mr-3 rounded-circle img-thumbnail shadow-sm" style = {{
+
+            <div className="media d-flex align-items-center db"><img src={profileUrl}
+              alt="..." width="65" className="mr-3 rounded-circle img-thumbnail shadow-sm" style={{
                 width: '60px',
                 height: '60px'
-              }}/>
+              }} />
               <div className="media-body">
                 <h4 className="m-0">{userName}</h4>
                 <p className="font-weight-light text-muted mb-0">{email}</p>
@@ -123,6 +159,9 @@ class Sidebar extends React.Component {
 
 
           </ul>
+        </div>
+        <div className="page-content p-5" id="content" style={this.state.contentClass}>
+          <button onClick={this.onToggle} id="sidebarCollapse" type="button" className="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Toggle</small></button>
         </div>
       </div>
 

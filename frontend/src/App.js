@@ -22,10 +22,10 @@ function App() {
       <Route  {...abc} render={(props) => {
         return (
           <>
-            <div style = {{zIndex: '150'}}>
+            <div style={{ zIndex: '150' }}>
               <Navbar />
             </div>
-            <div style = {{marginTop: '3%'}}>
+            <div style={{ marginTop: '3%' }}>
               <Pages {...props} />
 
 
@@ -51,10 +51,10 @@ function App() {
       <Route  {...abc} render={(props) => {
         return (
           <>
-            <div style = {{zIndex: '150', marginTop: '0'}}>
+            <div style={{ zIndex: '150', marginTop: '0' }}>
               <Sidebar />
             </div>
-            <div style = {{zIndex: '150', marginTop: '0'}}>
+            <div style={{}}>
               <Pages {...props} />
 
 

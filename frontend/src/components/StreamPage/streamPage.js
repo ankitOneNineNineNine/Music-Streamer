@@ -136,16 +136,16 @@ class StreamPage extends React.Component {
 
             if (status === 'enabled') {
                 var content =
-                    <>
+                    
                         
-                        <div className='tc mt0 pa0' style={{ zIndex: '-1' }}>
+                        <div className='tc pa0' style={{ zIndex: '-1', marginTop: '-50px' }}>
                             <div>
-                                <nav class="menu">
+                                <nav className="menu">
                                     <ol>
-                                        <li class="menu-item"><a href="#0">Emotion Detection</a>
-                                            <ol class="sub-menu">
-                                                <li class="menu-item"><a href="#0" onClick={this.changeClass}>Emoji Picker</a></li>
-                                                <li class="menu-item"><a href="#0">Face Detection</a></li>
+                                        <li className="menu-item"><a href="#0">Emotion Detection</a>
+                                            <ol className="sub-menu">
+                                                <li className="menu-item"><a href="#0" onClick={this.changeClass}>Emoji Picker</a></li>
+                                                <li className="menu-item"><a href="#0">Face Detection</a></li>
 
                                             </ol>
                                         </li>
@@ -183,7 +183,7 @@ class StreamPage extends React.Component {
                                     </Tilt>
                                 </div>
 
-                                <nav class="menu">
+                                <nav className="menu">
                                     <ol>
                                         <li className="menu-item db mt4" onClick={this.goBack}><a href="#0">Close</a>
                                         </li>
@@ -193,15 +193,15 @@ class StreamPage extends React.Component {
                             <div>
 
                             </div>
-
+                            <SongPage />
                             <AudioPlayer playlist={playlist} savefile={this.savefile} />
                         </div>
 
 
-                        <SongPage />
+                      
 
 
-                    </>
+                  
             }
             else {
                 var content = <p>Please upgrade your package or do the payment</p>

@@ -11,7 +11,7 @@ const options = {
     remove: false,
     defaultPosition: {
         top: 100,
-        left: 0,
+        right: 10,
     },
     mode: 'full',
     once: false,

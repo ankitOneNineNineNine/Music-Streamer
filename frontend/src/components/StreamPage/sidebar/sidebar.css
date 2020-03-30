@@ -19,17 +19,42 @@
  
   /* for toggle behavior */
   
-  #sidebar.active {
+  .sdactive {
     margin-left: -17rem;
   }
+  #content{
+  background-color:white;
+  height: 1px
+}
+  .page-content {
+    width: calc(100% - 17rem);
+    margin-left: 17rem;
+ 
+    transition: all 0.4s;
+  }
 
-   
+  #sidebarCollapse{
+    margin-top: -40px
+  }
+  .cntactive {
+    width: 100%;
+    margin: 0;
+  }
+  
   @media (max-width: 768px) {
     #sidebar {
       margin-left: -17rem;
     }
-    #sidebar.active {
+    .sdactive {
       margin-left: 0;
+    }
+    #content {
+      width: 100%;
+      margin: 0;
+    }
+    .cntactive {
+      margin-left: 17rem;
+      width: calc(100% - 17rem);
     }
 
   }
