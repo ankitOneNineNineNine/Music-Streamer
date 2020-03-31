@@ -11,12 +11,15 @@ class Sidebar extends React.Component {
     this.state = {
       image: [],
       toggleClass: {
-        display: ''
+        display: 'none'
       },
       contentClass: {
         width: '100%',
         marginLeft: '500',
         transition: 'all 0.4s',
+      },
+      btnClass: {
+
       }
     }
   }
@@ -38,33 +41,45 @@ class Sidebar extends React.Component {
   onToggle = () => {
     if (this.state.toggleClass.display === '') {
       var css = 'none'
+      this.setState(prev => ({
+        contentClass: {
+          width: '100%',
+          margin: '0',
+          transition: 'all 0.4s',
+        },
+
+      }))
     }
     if (this.state.toggleClass.display === 'none') {
       var css = ''
+      this.setState(prev => ({
+        contentClass: {
+          width: 'calc(100% - 17rem)',
+          marginLeft: '17rem',
+          transition: 'all 0.4s',
+        },
+
+      }))
     }
     this.setState(prev => ({
       toggleClass: {
         ...prev.toggleClass,
-        display: css
+        display: css,
+        transition: 'all 0.4s',
       }
     }))
- 
-  
 
-      this.setState(prev => ({
-        contentClass: {
-          width: '100%',
-          margin: '500',
-          transition: 'all 0.4s',
-        }
-      }))
-    
+
+
+
 
 
   }
 
   render() {
-
+    var btn = this.state.toggleClass.display === 'none' ?
+      <button onClick={this.onToggle} className={this.state.btnClass} id="sidebarCollapse" type="button" className="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Menu</small></button>
+      : <button onClick={this.onToggle} className = {this.state.btnClass} id="sidebarCollapse" type="button" className="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Close</small></button>
     var allImg = 'http://localhost:1250/uploads/users/images/'
     const profileUrl = `${allImg}${this.state.image[0]}`
     console.log(profileUrl)
@@ -161,7 +176,7 @@ class Sidebar extends React.Component {
           </ul>
         </div>
         <div className="page-content p-5" id="content" style={this.state.contentClass}>
-          <button onClick={this.onToggle} id="sidebarCollapse" type="button" className="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Toggle</small></button>
+          {btn}
         </div>
       </div>
 

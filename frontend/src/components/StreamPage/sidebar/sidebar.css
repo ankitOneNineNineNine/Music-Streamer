@@ -18,28 +18,21 @@
   }
  
   /* for toggle behavior */
-  
-  .sdactive {
-    margin-left: -17rem;
-  }
   #content{
   background-color:white;
   height: 1px
 }
-  .page-content {
+  .page-content{
     width: calc(100% - 17rem);
     margin-left: 17rem;
- 
-    transition: all 0.4s;
+     transition: all 0.4s;
   }
 
-  #sidebarCollapse{
-    margin-top: -40px
+ #sidebarCollapse{
+    margin-top: -40px;
+  
   }
-  .cntactive {
-    width: 100%;
-    margin: 0;
-  }
+
   
   @media (max-width: 768px) {
     #sidebar {
