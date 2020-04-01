@@ -33,24 +33,7 @@
   
   }
 
-  
-  @media (max-width: 768px) {
-    #sidebar {
-      margin-left: -17rem;
-    }
-    .sdactive {
-      margin-left: 0;
-    }
-    #content {
-      width: 100%;
-      margin: 0;
-    }
-    .cntactive {
-      margin-left: 17rem;
-      width: calc(100% - 17rem);
-    }
 
-  }
   
   /*
   *

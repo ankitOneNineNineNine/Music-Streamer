@@ -1,5 +1,9 @@
 import React from 'react'
 import './songPage.css'
+import httpRequest from '../../BackEndCall/httpRequest'
+httpRequest.get('/songs', {}. true)
+.then(data=>console.log(data))
+.catch(err=>console.log(err))
 export default function SongPage() {
   return (
     <>

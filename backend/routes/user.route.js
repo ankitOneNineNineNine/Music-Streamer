@@ -25,7 +25,7 @@ router.route('/uploadPhoto')
     .post(upload.single('img'), function (req, res, next) {
         var mimeType = req.file.mimetype.split('/')[0];
         if (mimeType != 'image') {
-            fs.unlink(path.join(process.cwd(), 'uploads/images/' + req.file.filename), function (err, done) {
+            fs.unlink(path.join(process.cwd(), './uploads/users/images//' + req.file.filename), function (err, done) {
                 if (err) {
                     console.log('file removing error');
                 } else {

@@ -15,7 +15,7 @@ class Sidebar extends React.Component {
       },
       contentClass: {
         width: '100%',
-        marginLeft: '500',
+        marginLeft: '0',
         transition: 'all 0.4s',
       },
       btnClass: {
@@ -65,6 +65,7 @@ class Sidebar extends React.Component {
       toggleClass: {
         ...prev.toggleClass,
         display: css,
+        zIndex: '150',
         transition: 'all 0.4s',
       }
     }))

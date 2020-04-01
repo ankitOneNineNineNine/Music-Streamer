@@ -9,7 +9,7 @@ var util = require('util');
 var userModel = require('./../models/user.model');
 var upload = require('./../middlewares/upload');
 var nodemailer = require('nodemailer');
-var songModel = require('./../models/songList');
+
 const randomString = require('randomstring')
 const sender = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -159,7 +159,7 @@ router.route('/duplicacyCheck')
     .get(function (req, res, next) {
 
         userModel.find({
-            "__v": 0,
+           
         }, function (err, user) {
             if (err) {
                 return next(err);

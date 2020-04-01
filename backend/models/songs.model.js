@@ -6,21 +6,20 @@ const songSchema = new Schema({
         type: String,
         required: true,
     },
-    artist: {
-        type: String,
-        required: true,
-    },
-    image: {
-        type: String,
-       
-    },
-    description: {
+    singer: [String],
+    cover:[String],
+    album: {
         type: String,
         
     },
-    link: {
+    musicSrc: {
         type : String,
-    }
+    },
+    uploader: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+    },
+    emotion: String
 }, {
     timestamps: true,
 })

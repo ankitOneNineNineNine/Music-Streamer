@@ -11,6 +11,7 @@ var path = require('path')
 var util = require('util');
 var authenticate = require('./middlewares/authenticate')
 var userRoute = require('./routes/user.route')
+var songsRoute = require('./routes/songList.route')
 
 require('./db');
 
@@ -36,6 +37,7 @@ app.use('/songs',  express.static(path.join(__dirname, 'songs')));
 app.use('/images',  express.static(path.join(__dirname, 'images')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/auth', authRoute)
+app.use('/songs', songsRoute)
 app.use('/user',  authenticate, userRoute)
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

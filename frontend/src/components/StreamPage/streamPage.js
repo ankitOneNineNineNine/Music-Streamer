@@ -20,27 +20,13 @@ class StreamPage extends React.Component {
         super();
         this.state = {
             emotionAttribute: '',
-            songArray: [
-                {
-                    name: ' Something Just like this',
-                    singer: ['Coldplay', 'ChainSmoker'],
-                    emotion: 'happy',
-                    cover: 'http://localhost:1250/images/The Chainsmokers & Coldplay - Something Just Like This.jpg',
-
-                    musicSrc: 'http://localhost:1250/songs/The Chainsmokers & Coldplay - Something Just Like This.mp3'
-                },
-                {
-                    name: 'Love Runs Out',
-                    singer: 'One Republic',
-                    cover: 'img',
-                    emotion: 'inLove',
-                    musicSrc: 'http://localhost:1250/songs/OneRepublic - Love Runs Out.mp3'
-                }
-            ],
+            songArray: [],
             dayMessage: '',
             changeClass: {
                 display: 'none'
             },
+            isLoading: true
+
 
         }
     }
@@ -67,20 +53,14 @@ class StreamPage extends React.Component {
 
     }
     componentDidMount() {
-        httpRequest.get('/user/RoleCheck', {}, true)
-            .then(data => {
-
-                localStorage.setItem('status', data.status)
-                this.setState({
-                    dayMessage: data.msg
-                })
-            })
+        httpRequest.get('/songs', {}.true)
+            .then(data => this.setState({
+                songArray: data,
+                isLoading: false
+            }))
             .catch(err => console.log(err))
 
 
-        httpRequest.get('/stream/', {}, true)
-            .then(data => console.log('data', data))
-            .catch(err => console.log('err', err))
     }
     emojiValue = (e) => {
         var attribute = e.target.attributes.getNamedItem('alt').value
@@ -114,30 +94,36 @@ class StreamPage extends React.Component {
     }
 
     render() {
-        var emotion = 'happy'
-        if (this.state.emotionAttribute) {
-            emotion = this.state.emotionAttribute
-        }
-        var playlist = emotion === 'happy' ?
-            this.state.songArray.filter(songs => songs.emotion === 'happy').map(songs => songs)
-            : emotion === 'sad' ?
-                this.state.songArray.filter(songs => songs.emotion === 'sad').map(songs => songs)
-                : emotion === 'inLove' ?
-                    this.state.songArray.filter(songs => songs.emotion === 'inLove').map(songs => songs)
-                    : emotion === 'demotivated' ?
-                        this.state.songArray.filter(songs => songs.emotion === 'happy').map(songs => songs)
-                        : []
-        var status = localStorage.getItem('status')
-        var token = localStorage.getItem('token')
-        if (!token) {
-            var content = <p>Please Log In and Subscribe</p>
+        if (this.state.isLoading) {
+            var content = <p>Loading</p>
         }
         else {
 
-            if (status === 'enabled') {
-                var content =
-                    
-                        
+            var emotion = 'happy'
+            if (this.state.emotionAttribute) {
+                emotion = this.state.emotionAttribute
+            }
+            var playlist = emotion === 'happy' ?
+                (this.state.songArray || []).filter(songs => songs.emotion === 'happy').map(songs => songs)
+                : emotion === 'sad' ?
+                    (this.state.songArray || []).filter(songs => songs.emotion === 'sad').map(songs => songs)
+                    : emotion === 'inLove' ?
+                        (this.state.songArray || []).filter(songs => songs.emotion === 'inLove').map(songs => songs)
+                        : emotion === 'demotivated' ?
+                            (this.state.songArray || []).filter(songs => songs.emotion === 'happy').map(songs => songs)
+                            : (this.state.songArray || []).map(songs => songs)
+            var status = localStorage.getItem('status')
+            console.log('here', playlist)
+            var token = localStorage.getItem('token')
+            if (!token) {
+                var content = <p>Please Log In and Subscribe</p>
+            }
+            else {
+
+                if (status === 'enabled') {
+                    var content =
+
+
                         <div className='tc pa0' style={{ zIndex: '-1', marginTop: '-50px' }}>
                             <div>
                                 <nav className="menu">
@@ -198,13 +184,14 @@ class StreamPage extends React.Component {
                         </div>
 
 
-                      
 
 
-                  
-            }
-            else {
-                var content = <p>Please upgrade your package or do the payment</p>
+
+
+                }
+                else {
+                    var content = <p>Please upgrade your package or do the payment</p>
+                }
             }
         }
 
