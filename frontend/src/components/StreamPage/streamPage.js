@@ -113,7 +113,9 @@ class StreamPage extends React.Component {
                             (this.state.songArray || []).filter(songs => songs.emotion === 'happy').map(songs => songs)
                             : (this.state.songArray || []).map(songs => songs)
             var status = localStorage.getItem('status')
-            console.log('here', playlist)
+            httpRequest.post('/user/recentPlaylist', {body: playlist}, true)
+            .then(data=>console.log(data))
+            .catch(err=>console.log(err))
             var token = localStorage.getItem('token')
             if (!token) {
                 var content = <p>Please Log In and Subscribe</p>

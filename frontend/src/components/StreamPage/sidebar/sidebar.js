@@ -179,6 +179,7 @@ class Sidebar extends React.Component {
         <div className="page-content p-5" id="content" style={this.state.contentClass}>
           {btn}
         </div>
+    
       </div>
 
     )

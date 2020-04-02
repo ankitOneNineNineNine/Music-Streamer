@@ -18,6 +18,8 @@ function map_user_request(user, userDetails) {
         user.status = userDetails.status
     if (userDetails.image)
         user.image.unshift(userDetails.image)
+    if (userDetails.recentPlaylist)
+        user.recentPlaylist = userDetails.recentPlaylist
     return user;
 }
 
@@ -38,9 +40,9 @@ router.route('/uploadPhoto')
         }
         else {
             var filename = req.file.filename
-        
+
             req.body.image = filename
-    
+
             user = req.loggedInUser
             var updateProfileUser = map_user_request(user, req.body)
 
@@ -170,6 +172,31 @@ router.route('/:id')
         })
 
     });
+router.route('/recentPlaylist')
+    .post(function (req, res, next) {
+        userModel.findOne({
+            email: req.loggedInUser.email
+        })
+            .exec(function (err, user) {
+                if (err)
+                    return next(err)
+                if (!user)
+                    return next({
+                        msg: 'user not found'
+                    })
+                var recentPlaylist = req.body
+                var updateRecentPlaylist = map_user_request(user, {
+                    recentPlaylist,
+
+                })
+                updateRecentPlaylist.save(function (err, updated) {
+                    if (err) {
+                        return next(err);
+                    }
+                    res.json(updated);
+                })
+            })
+    })
 router.route('/payForRole')
     .post(function (req, res, next) {
         userModel.findOne({

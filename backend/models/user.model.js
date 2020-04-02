@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     status: {
-        type : String,
+        type: String,
         enum: ['enabled', 'disabled'],
         default: 'enabled'
     },
@@ -19,7 +19,7 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-     password: {
+    password: {
         type: String,
         required: true,
     },
@@ -28,10 +28,14 @@ const userSchema = new Schema({
     }],
     planRole: {
         type: Number,
-        enum: [1,2,3],
+        enum: [1, 2, 3],
         default: 1
     },
-    RoleToken:String,
+    recentPlaylist: [{
+        type: Schema.Types.ObjectId,
+        ref: 'songs'
+    }],
+    RoleToken: String,
     RoleTokenExpiry: Date,
     passwordResetToken: String,
     passwordResetTokenExpiry: Date,
