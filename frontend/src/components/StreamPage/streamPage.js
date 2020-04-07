@@ -13,7 +13,7 @@ import { withRouter } from 'react-router-dom';
 import notify from '../../utils/notify';
 import Sidebar from './sidebar/sidebar';
 import AudioPlayer from './audioplayer/audioPlayer'
-import SongPage from './SongsPage/songPage';
+
 class StreamPage extends React.Component {
 
     constructor() {
@@ -54,10 +54,13 @@ class StreamPage extends React.Component {
     }
     componentDidMount() {
         httpRequest.get('/songs', {}.true)
-            .then(data => this.setState({
-                songArray: data,
-                isLoading: false
-            }))
+            .then(data => {
+
+                this.setState({
+                    songArray: data,
+                    isLoading: false
+                })
+            })
             .catch(err => console.log(err))
 
 
@@ -99,23 +102,22 @@ class StreamPage extends React.Component {
         }
         else {
 
-            var emotion = 'happy'
+            var emotion;
             if (this.state.emotionAttribute) {
                 emotion = this.state.emotionAttribute
             }
             var playlist = emotion === 'happy' ?
-                (this.state.songArray || []).filter(songs => songs.emotion === 'happy').map(songs => songs)
+                (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'happy').map(songs => songs)
                 : emotion === 'sad' ?
-                    (this.state.songArray || []).filter(songs => songs.emotion === 'sad').map(songs => songs)
+                    (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'sad').map(songs => songs)
                     : emotion === 'inLove' ?
-                        (this.state.songArray || []).filter(songs => songs.emotion === 'inLove').map(songs => songs)
+                        (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'inLove').map(songs => songs)
                         : emotion === 'demotivated' ?
-                            (this.state.songArray || []).filter(songs => songs.emotion === 'happy').map(songs => songs)
+                            (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'happy').map(songs => songs)
                             : (this.state.songArray || []).map(songs => songs)
+            console.log(playlist)
             var status = localStorage.getItem('status')
-            httpRequest.post('/user/recentPlaylist', {body: playlist}, true)
-            .then(data=>console.log(data))
-            .catch(err=>console.log(err))
+            console.log('here', playlist)
             var token = localStorage.getItem('token')
             if (!token) {
                 var content = <p>Please Log In and Subscribe</p>
@@ -181,7 +183,7 @@ class StreamPage extends React.Component {
                             <div>
 
                             </div>
-                            <SongPage />
+
                             <AudioPlayer playlist={playlist} savefile={this.savefile} />
                         </div>
 

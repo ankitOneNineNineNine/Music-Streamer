@@ -18,9 +18,7 @@ class Sidebar extends React.Component {
         marginLeft: '0',
         transition: 'all 0.4s',
       },
-      btnClass: {
-
-      }
+     
     }
   }
   componentDidMount() {
@@ -83,7 +81,6 @@ class Sidebar extends React.Component {
       : <button onClick={this.onToggle} className = {this.state.btnClass} id="sidebarCollapse" type="button" className="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Close</small></button>
     var allImg = 'http://localhost:1250/uploads/users/images/'
     const profileUrl = `${allImg}${this.state.image[0]}`
-    console.log(profileUrl)
     var userName = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).userName : 'userName'
     var email = JSON.parse(localStorage.getItem('user')) ? JSON.parse(localStorage.getItem('user')).email : 'email'
 
@@ -157,7 +154,7 @@ class Sidebar extends React.Component {
 
           <ul className="nav flex-column bg-white mb-0">
             <li className="nav-item">
-              <NavLink to="/account" className="nav-link text-dark font-italic bg-light">
+              <NavLink to="/profile" className="nav-link text-dark font-italic bg-light">
                 <i className="fa fa-user mr-3 text-primary fa-fw"></i>
                 My Account
               </NavLink>

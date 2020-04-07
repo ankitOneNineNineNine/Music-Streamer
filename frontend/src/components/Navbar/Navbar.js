@@ -23,8 +23,8 @@ function Navbar(props) {
 
                 </a>
                 <div className="dropdown-menu fr" aria-labelledby="navbarDropdown">
-                    <NavLink className="dropdown-item fr" to="/account">My Account</NavLink>
-                    <NavLink className="dropdown-item" to="/edit-profile">Settings</NavLink>
+                    <NavLink className="dropdown-item fr" to="/profile">My Account</NavLink>
+                    <NavLink className="dropdown-item" to="/settings">Settings</NavLink>
                     <div className="dropdown-divider"></div>
                     <NavLink className="dropdown-item" to="/" onClick={logout} >Logout</NavLink>
                 </div>
