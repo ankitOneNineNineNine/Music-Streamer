@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactJkMusicPlayer from "react-jinke-music-player";
 import notify from './../../../utils/notify';
+
 const options = {
     defaultPlayIndex: 0,
     theme: 'dark',
