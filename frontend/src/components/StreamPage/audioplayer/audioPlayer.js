@@ -7,6 +7,7 @@ const options = {
     theme: 'dark',
     clearPriorAudioLists: true,
     autoPlayInitLoadPlayList: true,
+    autoPlay: true,
     preload: true,
     remember: false,
     remove: false,

@@ -60,7 +60,7 @@ router.route('/login')
                             role: user.planRole,
                         }, config.jwtSecret);
                         res.status(200).json({
-                            user: { userName: user.userName,fullName: user.fullName, email: user.email, role: user.planRole },
+                            user: { userName: user.userName,fullName: user.fullName,image: user.image, email: user.email, role: user.planRole },
                             token: token,
 
                         })

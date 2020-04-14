@@ -3,22 +3,59 @@ import { NavLink, Route, Redirect, BrowserRouter, withRouter } from 'react-route
 import icon from './bootstrap-solid.svg'
 import { GoogleLogout } from 'react-google-login';
 import notify from './../../utils/notify'
+import { Avatar } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import httpRequest from '../BackEndCall/httpRequest';
 
 
+
+
+const useStyles = makeStyles((theme) => ({
+    small: {
+        width: theme.spacing(3),
+        height: theme.spacing(3),
+
+    },
+
+}));
 function Navbar(props) {
+    var image
+    const classes = useStyles();
     function logout() {
         localStorage.clear();
         props.history.push('/')
         notify.showSuccess('Signed Out')
     }
+    var token = localStorage.getItem('token')
+    if (token) {
 
-    var links = localStorage.getItem('token') ?
+        var allImg = 'http://localhost:1250/uploads/users/images/'
+        image = JSON.parse(localStorage.getItem('user')).image[0];
+
+
+        if (image.length) {
+            const profileUrl = `${allImg}${image}`
+            var avatar = <Avatar className={classes.small} src={profileUrl} />
+
+
+        }
+        else {
+            const profileUrl = JSON.parse(localStorage.getItem('user')).fullName.charAt(0)
+            const avatar = <Avatar className={classes.small}>{profileUrl} </Avatar>
+        }
+    }
+
+    var links = token ?
+
         <ul className="navbar-nav">
             <li className="nav-item dropdown">
 
                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div className='dib'>
 
-                    <i className="fa fa-user mr3" /> <span className='mr2'>Profile</span>
+                        {avatar}
+                    </div>
+                    <span className='mr2'>Profile</span>
 
 
                 </a>
@@ -42,9 +79,12 @@ function Navbar(props) {
 
 
     var link2 = localStorage.getItem('token') ?
-        <li className="nav-item">
-            <NavLink className='nav-link' to='/stream'> Music Player <span className="sr-only">(current)</span></NavLink>
-        </li>
+        <>
+            <li className="nav-item">
+                <NavLink className='nav-link' to='/stream'> Music Player <span className="sr-only">(current)</span></NavLink>
+            </li>
+       
+        </>
         : ''
 
     return (
@@ -65,7 +105,7 @@ function Navbar(props) {
                     <ul className="navbar-nav mr-auto"
                         style={{
                             float: 'left',
-                            
+
                             textDecoration: 'none',
 
 

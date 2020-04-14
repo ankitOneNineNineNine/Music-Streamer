@@ -16,6 +16,8 @@ import Help from './components/help/help';
 import Sidebar from './components/StreamPage/sidebar/sidebar';
 import UploadImage from './components/uploadImage/uploadimage';
 import Profile from './components/myprofile/details.profile';
+import Emotion from './components/EmotionDetector/emotionClicker/emotion';
+
 
 function App() {
   const NavRoute = ({ component: Pages, ...abc }) => {
@@ -23,13 +25,12 @@ function App() {
       <Route  {...abc} render={(props) => {
         return (
           <>
-            <div style={{ zIndex: '150' }}>
+            <div style={{ zIndex: '150' }} >
               <Navbar />
             </div>
-            <div style={{ marginTop: '3%' }}>
+
+            <div style={{ marginTop: '3%' }} >
               <Pages {...props} />
-
-
             </div>
 
 
@@ -47,18 +48,20 @@ function App() {
 
 
   }
-  const SideBarRoute = ({ component: Pages, ...abc }) => {
+  const SideNavRoute = ({ component: Pages, ...abc }) => {
     return (
       <Route  {...abc} render={(props) => {
         return (
           <>
-            <div style={{ zIndex: '150', marginTop: '0' }}>
+            <div style={{ zIndex: '150' }} >
+              <Navbar />
+            </div>
+            <div style={{ zIndex: '150' }} >
               <Sidebar />
             </div>
-            <div style={{}}>
+
+            <div style={{ marginTop: '3%' }} >
               <Pages {...props} />
-
-
             </div>
 
 
@@ -69,6 +72,7 @@ function App() {
         )
 
 
+
       }} />
 
 
@@ -76,6 +80,12 @@ function App() {
 
 
   }
+  var routeContent = !localStorage.getItem('token') ?
+    <NavRoute path='/stream' component={StreamPage}></NavRoute>
+    :
+    <SideNavRoute path='/stream' component={StreamPage}></SideNavRoute>
+
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -84,9 +94,10 @@ function App() {
           <Route path='/register' component={Register}></Route>
           <Route path='/login' component={Login}></Route>
           <Route path='/forgot-password' component={ForgotPassword}></Route>
-          <SideBarRoute path='/stream' component={StreamPage}></SideBarRoute>
+          {routeContent}
           <NavRoute path='/profile' component={Profile}></NavRoute>
-          <SideBarRoute path='/settings' component={UploadImage}></SideBarRoute>
+
+          <NavRoute path='/settings' component={UploadImage}></NavRoute>
           <NavRoute path='/plans' component={Plans}></NavRoute>
           <NavRoute path='/help' component={Help}></NavRoute>
           <NavRoute exact path='/' component={HomePage}></NavRoute>
@@ -95,7 +106,7 @@ function App() {
 
       </BrowserRouter>
       <ToastContainer />
-  
+
     </div>
   );
 }

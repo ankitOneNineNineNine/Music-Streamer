@@ -1,18 +1,19 @@
 import React from 'react'
 import httpRequest from '../BackEndCall/httpRequest';
-
+import happy from './sidebar/happy.png'
+import neutral from './sidebar/neutral.png'
+import sad from './sidebar/sad.png'
 import FileSaver, { saveAs } from 'file-saver';
 import "react-jinke-music-player/assets/index.css";
 import Tilt from 'react-tilt'
-import happy from './images/happy.webp'
-import sad from './images/sad.png'
-import loved from './images/loved.png'
-import demotivated from './images/demotivated.webp'
+
 import './streamPage.css'
 import { withRouter } from 'react-router-dom';
 import notify from '../../utils/notify';
 import Sidebar from './sidebar/sidebar';
 import AudioPlayer from './audioplayer/audioPlayer'
+import Emotion from '../EmotionDetector/emotionClicker/emotion';
+
 
 class StreamPage extends React.Component {
 
@@ -20,50 +21,41 @@ class StreamPage extends React.Component {
         super();
         this.state = {
             emotionAttribute: '',
+            changeClass: {
+                displayemotion: 'none',
+                displayFace: 'none'
+            },
+            emotionDisplay: false,
             songArray: [],
             dayMessage: '',
-            changeClass: {
-                display: 'none'
-            },
             isLoading: true
 
 
         }
     }
-    changeClass = () => {
+    emotionShow = () => {
+        this.setState({
+            emotionDisplay: true
+        })
+        this.setState(prev => ({
+            changeClass: {
+                displayFace: 'none',
+                displayemotion: ''
+            }
 
-        if (this.state.changeClass.display === 'none') {
-            this.setState(prev => ({
-                changeClass: {
-                    ...prev.changeClass,
-                    display: 'inline-block'
-                },
-
-            }))
-        }
-        else {
-            this.setState(prev => ({
-                changeClass: {
-                    ...prev.changeClass,
-                    display: 'none'
-                },
-
-            }))
-        }
-
+        }))
     }
-    componentDidMount() {
-        httpRequest.get('/songs', {}.true)
-            .then(data => {
+    faceShow = () => {
+        this.setState({
+            emotionDisplay: false
+        })
+        this.setState(prev => ({
+            changeClass: {
+                displayFace: '',
+                displayemotion: 'none'
+            }
 
-                this.setState({
-                    songArray: data,
-                    isLoading: false
-                })
-            })
-            .catch(err => console.log(err))
-
-
+        }))
     }
     emojiValue = (e) => {
         var attribute = e.target.attributes.getNamedItem('alt').value
@@ -78,15 +70,22 @@ class StreamPage extends React.Component {
 
         }))
     }
-    goBack = () => {
-        this.setState(prev => ({
-            changeClass: {
-                ...prev.changeClass,
-                display: 'none'
-            },
 
-        }))
+    componentDidMount() {
+        httpRequest.get('/songs', {}.true)
+            .then(data => {
+
+                this.setState({
+                    songArray: data,
+                    isLoading: false
+                })
+            })
+            .catch(err => console.log(err))
+
+
     }
+
+
     savefile = (dopwnloadInfo) => {
 
         var stringparam = dopwnloadInfo.src.toString()
@@ -102,23 +101,50 @@ class StreamPage extends React.Component {
         }
         else {
 
-            var emotion;
+            var emotion = '';
             if (this.state.emotionAttribute) {
                 emotion = this.state.emotionAttribute
             }
-            var playlist = emotion === 'happy' ?
+            var playlist = emotion.toLowerCase() === 'happy' ?
                 (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'happy').map(songs => songs)
-                : emotion === 'sad' ?
+                : emotion.toLowerCase() === 'sad' ?
                     (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'sad').map(songs => songs)
-                    : emotion === 'inLove' ?
-                        (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'inLove').map(songs => songs)
-                        : emotion === 'demotivated' ?
-                            (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'happy').map(songs => songs)
-                            : (this.state.songArray || []).map(songs => songs)
-            console.log(playlist)
+                    : emotion.toLowerCase() === 'neutral' ?
+                        (this.state.songArray || []).map(songs => songs)
+                        : (this.state.songArray || []).map(songs => songs)
+
             var status = localStorage.getItem('status')
-            console.log('here', playlist)
+
             var token = localStorage.getItem('token')
+            let contentofIdeal = this.state.emotionDisplay ?
+                <div className='pa4 br3 bg-light shadow' style={this.state.changeClass}>
+
+                    <div className='ma4 mt0 dib '>
+
+                        <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
+                            <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={happy} alt='happy' /> </div>
+                            <p className='br3 shadow blue'>Happy</p>
+                        </Tilt>
+
+                    </div>
+                    <div className='ma4 mt0 dib '>
+                        <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
+                            <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={sad} alt='sad' /> </div>
+                            <p className='br3 shadow blue'>Sad</p>
+                        </Tilt>
+
+                    </div>
+
+                    <div className='ma4 mt0 dib '>
+
+                        <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
+                            <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={neutral} alt='neutral' /> </div>
+                            <p className='br3 shadow blue'>Neutral</p>
+                        </Tilt>
+
+                    </div>
+                </div>
+                : null
             if (!token) {
                 var content = <p>Please Log In and Subscribe</p>
             }
@@ -127,61 +153,40 @@ class StreamPage extends React.Component {
                 if (status === 'enabled') {
                     var content =
 
+                        <div className='tc pa0 mt0' style={{ zIndex: '-1' }}>
 
-                        <div className='tc pa0' style={{ zIndex: '-1', marginTop: '-50px' }}>
-                            <div>
-                                <nav className="menu">
-                                    <ol>
-                                        <li className="menu-item"><a href="#0">Emotion Detection</a>
-                                            <ol className="sub-menu">
-                                                <li className="menu-item"><a href="#0" onClick={this.changeClass}>Emoji Picker</a></li>
-                                                <li className="menu-item"><a href="#0">Face Detection</a></li>
+                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style={{ marginTop: '-10rem' }}>
+                                Emotion Sort
+                        </button>
+                            <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div className="modal-dialog" role="document">
+                                    <div className="modal-content">
+                                        <div className="modal-header">
+                                            <h5 className="modal-title" id="exampleModalLabel">Emotion Detection</h5>
+                                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div className="modal-body">
+                                            <div className="btn-group" role="group" aria-label="Button group with nested dropdown">
+                                                <div className="btn-group" role="group">
+                                                    <button id="btnGroupDrop1" type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Select your choice
+                                                 </button>
+                                                    <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                                        <a className="dropdown-item link pointer" onClick={this.emotionShow}>Emoji Selector</a>
+                                                        <a className="dropdown-item link pointer" onClick={this.faceShow}>Face Analysis</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {contentofIdeal}
 
-                                            </ol>
-                                        </li>
-                                    </ol>
-                                </nav>
-                            </div>
-                            <div className='pa4 br3 bg-light shadow' style={this.state.changeClass}>
-
-                                <div className='ma4 mt0 dib '>
-
-                                    <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
-                                        <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={happy} alt='happy' /> </div>
-                                        <p className='br3 shadow blue'>Happy</p>
-                                    </Tilt>
-
+                                        </div>
+                                        <div className="modal-footer">
+                                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className='ma4 mt0 dib '>
-                                    <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
-                                        <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={sad} alt='Sad' /> </div>
-                                        <p className='br3 shadow blue'>Sad</p>
-                                    </Tilt>
-
-                                </div>
-                                <div className='ma4 mt0 dib '>
-                                    <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
-                                        <div className="Tilt-inner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={loved} alt='inLove' /> </div>
-                                        <p className='br3 shadow blue'>In Love</p>
-                                    </Tilt>
-
-                                </div>
-                                <div className='ma4 mt0 dib '>
-                                    <Tilt className="Tilt br2 shadow-2" options={{ max: 55 }} style={{ height: 150, width: 150 }} >
-                                        <div className="Tilt-iner pa3" ><img onClick={this.emojiValue} style={{ paddingTop: '5px' }} src={demotivated} alt='Demotivated' /> </div>
-                                        <p className='br3 shadow blue'>Demotivated</p>
-                                    </Tilt>
-                                </div>
-
-                                <nav className="menu">
-                                    <ol>
-                                        <li className="menu-item db mt4" onClick={this.goBack}><a href="#0">Close</a>
-                                        </li>
-                                    </ol>
-                                </nav>
-                            </div>
-                            <div>
-
                             </div>
 
                             <AudioPlayer playlist={playlist} savefile={this.savefile} />
