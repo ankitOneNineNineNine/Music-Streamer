@@ -7,9 +7,9 @@ const options = {
     theme: 'dark',
     clearPriorAudioLists: true,
     autoPlayInitLoadPlayList: true,
-    autoPlay: true,
+   
     preload: true,
-    remember: false,
+    remember: true,
     remove: false,
     defaultPosition: {
         top: 100,
@@ -17,7 +17,7 @@ const options = {
     },
     mode: 'full',
     once: false,
-    autoPlay: false,
+    autoPlay: true,
     toggleMode: true,
     showMiniModeCover: true,
     showMiniProcessBar: true,
@@ -28,11 +28,10 @@ const options = {
     showReload: true,
     showDownload: true,
     showPlayMode: true,
-
     defaultVolume: 1,
     playModeShowTime: 600,
     loadAudioErrorPlayNext: true,
-    autoHiddenCover: true,
+    autoHiddenCover: false,
     spaceBar: true,
     onAudioDownload() {
         notify.showSuccess('audio downloaded')
