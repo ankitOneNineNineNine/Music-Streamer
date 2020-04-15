@@ -16,7 +16,7 @@ import Help from './components/help/help';
 import Sidebar from './components/StreamPage/sidebar/sidebar';
 import UploadImage from './components/uploadImage/uploadimage';
 import Profile from './components/myprofile/details.profile';
-import Emotion from './components/EmotionDetector/emotionClicker/emotion';
+import Songpage from './components/StreamPage/songpage/songpage';
 
 
 function App() {

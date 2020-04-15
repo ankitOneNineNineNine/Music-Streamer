@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom';
 import notify from '../../utils/notify';
 import Sidebar from './sidebar/sidebar';
 import AudioPlayer from './audioplayer/audioPlayer'
-import Emotion from '../EmotionDetector/emotionClicker/emotion';
+import Songpage from './songpage/songpage';
 
 
 class StreamPage extends React.Component {
@@ -28,7 +28,9 @@ class StreamPage extends React.Component {
             emotionDisplay: false,
             songArray: [],
             dayMessage: '',
-            isLoading: true
+            playlist: [],
+            isLoading: true,
+            emotionSort: false,
 
 
         }
@@ -60,7 +62,8 @@ class StreamPage extends React.Component {
     emojiValue = (e) => {
         var attribute = e.target.attributes.getNamedItem('alt').value
         this.setState({
-            emotionAttribute: attribute
+            emotionAttribute: attribute,
+            emotionSort: true,
         })
         this.setState(prev => ({
             changeClass: {
@@ -94,7 +97,24 @@ class StreamPage extends React.Component {
 
         FileSaver.saveAs(stringparam, filename);
     }
+    onPlay = (songId) => {
+        this.setState({
+            emotionSort: false,
+        })
+        if (songId === 'all') {
+            this.setState({
+                playlist: this.state.songArray,
+            })
+        }
+        else {
 
+            var array = (this.state.songArray || []).filter(songs => songs._id === songId).map(songs => songs)
+
+            this.setState({
+                playlist: array
+            })
+        }
+    }
     render() {
         if (this.state.isLoading) {
             var content = <p>Loading</p>
@@ -105,13 +125,20 @@ class StreamPage extends React.Component {
             if (this.state.emotionAttribute) {
                 emotion = this.state.emotionAttribute
             }
-            var playlist = emotion.toLowerCase() === 'happy' ?
-                (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'happy').map(songs => songs)
-                : emotion.toLowerCase() === 'sad' ?
-                    (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'sad').map(songs => songs)
-                    : emotion.toLowerCase() === 'neutral' ?
-                        (this.state.songArray || []).map(songs => songs)
-                        : (this.state.songArray || []).map(songs => songs)
+            var playlist = this.state.emotionSort ?
+                (emotion.toLowerCase() === 'happy' ?
+                    (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'happy').map(songs => songs)
+                    : emotion.toLowerCase() === 'sad' ?
+                        (this.state.songArray || []).filter(songs => songs.emotion.toLowerCase() === 'sad').map(songs => songs)
+                        : emotion.toLowerCase() === 'neutral' ?
+                            (this.state.songArray || []).map(songs => songs)
+                            : (this.state.songArray || []).map(songs => songs))
+                :
+                (
+                    this.state.playlist.length ?
+                        this.state.playlist
+                        : (this.state.songArray || []).map(songs => songs))
+
 
             var status = localStorage.getItem('status')
 
@@ -155,7 +182,7 @@ class StreamPage extends React.Component {
 
                         <div className='tc pa0 mt0' style={{ zIndex: '-1' }}>
 
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style={{ marginTop: '-10rem' }}>
+                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style={{ marginTop: '-15rem' }}>
                                 Emotion Sort
                         </button>
                             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -188,7 +215,7 @@ class StreamPage extends React.Component {
                                     </div>
                                 </div>
                             </div>
-
+                            <Songpage songs={this.state.songArray} songPlay={this.onPlay} />
                             <AudioPlayer playlist={playlist} savefile={this.savefile} />
                         </div>
 
