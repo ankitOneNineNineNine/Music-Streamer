@@ -35,10 +35,10 @@ class Songpage extends React.Component {
             <>
 
                 <div style={{ marginTop: '-6em' }}>
-                        <p style = {{marginTop: '3rem'}}>All Songs</p>
+                    <button type="button" value='all' onClick={this.handlePlay} className=" fr ma2 btn btn-outline-primary br-pill">Play All</button>
                     <table className="table table-striped table-dark">
                         <thead>
-                                                  <tr>
+                            <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Artist</th>
