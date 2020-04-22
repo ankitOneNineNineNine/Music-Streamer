@@ -116,6 +116,7 @@ class StreamPage extends React.Component {
         }
     }
     render() {
+
         if (this.state.isLoading) {
             var content = <p>Loading</p>
         }
@@ -182,7 +183,7 @@ class StreamPage extends React.Component {
 
                         <div className='tc pa0 mt0' style={{ zIndex: '-1' }}>
 
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style={{ marginTop: '-15rem' }}>
+                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style={{ marginTop: '-10rem' }}>
                                 Emotion Sort
                         </button>
                             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

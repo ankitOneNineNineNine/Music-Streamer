@@ -32,8 +32,7 @@ function Navbar(props) {
         var allImg = 'http://localhost:1250/uploads/users/images/'
         image = JSON.parse(localStorage.getItem('user')).image[0];
 
-
-        if (image.length) {
+        if (image) {
             const profileUrl = `${allImg}${image}`
             var avatar = <Avatar className={classes.small} src={profileUrl} />
 
@@ -83,7 +82,7 @@ function Navbar(props) {
             <li className="nav-item">
                 <NavLink className='nav-link' to='/stream'> Music Player <span className="sr-only">(current)</span></NavLink>
             </li>
-       
+
         </>
         : ''
 

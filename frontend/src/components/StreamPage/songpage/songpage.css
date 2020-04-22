@@ -1,3 +1,15 @@
-.icon:hover{
+.icon:hover {
     opacity: 50%;
+}
+
+.songPageBody {
+    overflow: scroll;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+    /* make scrollbar transparent */
 }
