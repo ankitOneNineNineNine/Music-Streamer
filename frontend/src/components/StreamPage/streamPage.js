@@ -116,7 +116,28 @@ class StreamPage extends React.Component {
         }
     }
     render() {
+        // const songDescription = this.state.songSelected ?
+        //     <>
+        //         <div class="card-body w-100 br3 shadow-5 pa3">
+       
+        //             <div className='dib mb2'>
+        //                 <p className='db f2 bg-light shadow'>Now Playing</p>
+        //             </div>
+        //             <div className='dib'>
+        //                 <img src={this.state.songSelected.cover[0]} width='200px' height='auto' />
 
+        //             </div>
+
+        //             <div className='dib mb2'>
+        //                 <p className='f1 pa3'>{this.state.songSelected.name}</p>
+        //                 <p className='f2 pa2'>{this.state.songSelected.singer.map(song => song)}</p>
+        //                 <p className='f3 pa1'>{this.state.songSelected.emotion}</p>
+
+        //             </div>
+        //         </div>
+        //     </>
+        //     :
+        //     null
         if (this.state.isLoading) {
             var content = <p>Loading</p>
         }

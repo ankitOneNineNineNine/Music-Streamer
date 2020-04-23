@@ -68,11 +68,11 @@ function Navbar(props) {
         </ul>
         : <ul className="navbar-nav">
             <li className="nav-item my-2 my-lg-0">
-                <NavLink className='nav-link' to='/register'> Register<span className="sr-only">(current)</span></NavLink>
+                <NavLink className='nav-link' to='/register'> Register</NavLink>
             </li>
 
             <li className="nav-item">
-                <NavLink className='nav-link' to='/login'> Login<span className="sr-only">(current)</span></NavLink>
+                <NavLink className='nav-link' to='/login'> Login</NavLink>
             </li>
         </ul>
 
@@ -80,7 +80,7 @@ function Navbar(props) {
     var link2 = localStorage.getItem('token') ?
         <>
             <li className="nav-item">
-                <NavLink className='nav-link' to='/stream'> Music Player <span className="sr-only">(current)</span></NavLink>
+                <NavLink className='nav-link' to='/stream'> Music Player </NavLink>
             </li>
 
         </>
@@ -113,13 +113,13 @@ function Navbar(props) {
                     >
 
                         <li className="nav-item">
-                            <NavLink className='nav-link' to='/'>Home <span className="sr-only">(current)</span></NavLink>
+                            <NavLink className='nav-link' to='/'>Home</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className='nav-link' to='/help'>Help <span className="sr-only">(current)</span></NavLink>
+                            <NavLink className='nav-link' to='/help'>Help</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className='nav-link' to='/plans'> Plans <span className="sr-only">(current)</span></NavLink>
+                            <NavLink className='nav-link' to='/plans'> Plans</NavLink>
                         </li>
                         {link2}
 

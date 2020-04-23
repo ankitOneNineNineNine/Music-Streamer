@@ -32,7 +32,7 @@ const options = {
     playModeShowTime: 600,
     loadAudioErrorPlayNext: true,
     autoHiddenCover: false,
-    spaceBar: true,
+    spaceBar: false,
     onAudioDownload() {
         notify.showSuccess('audio downloaded')
     },
