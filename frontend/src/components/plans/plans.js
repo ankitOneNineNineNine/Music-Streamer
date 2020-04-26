@@ -42,14 +42,49 @@ class Plans extends React.Component {
             else if (roleNumber === 3) {
                 var roleContent = <h2>Your current plan is yearly subscription.  {this.state.dayMessage}</h2>
             }
+            else if (roleNumber === 0) {
 
+            }
+
+
+            if (roleNumber !== 0) {
+                var pricingFree = <div className="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp ">
+                    <div className="inner-box">
+                        <div className="icon-box">
+                            <div className="icon-outer"><i className="fa fa-music"></i></div>
+                        </div>
+                        <div className="price-box">
+                            <div className="title">Trial</div>
+                            <h4 className="price">FREE</h4>
+                        </div>
+                        <ul className="features">
+                            <li className="true">Ad free </li>
+                            <li className="true">7 Days Period</li>
+                            <li className="true">Easy Access</li>
+                            <li className="true">Upgrade facility </li>
+                            <li className="true">Quick after SignUp</li>
+                            <li className="false">No Pause and Reuse</li>
+                            <li className="false">5 songs</li>
+                            <li className="false">No Cancellation</li>
+                        </ul>
+                        <div className="btn-box">
+                            <a href='#' className="theme-btn disabled">Free Plan</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else{
+                var pricingFree = null;
+            }
         }
+
         else {
             var roleContent = <h2>Please Log in to buy the below plans</h2>
         }
+
         return (
             <>
-                <section  className="pricing-section">
+                <section className="pricing-section">
                     <div className="container mt0">
                         <div className="sec-title text-center">
                             <div className="blink">
@@ -62,30 +97,7 @@ class Plans extends React.Component {
                         <div className="outer-box">
                             <div className="row">
 
-                                <div className="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp ">
-                                    <div className="inner-box">
-                                        <div className="icon-box">
-                                            <div className="icon-outer"><i className="fa fa-music"></i></div>
-                                        </div>
-                                        <div className="price-box">
-                                            <div className="title">Trial</div>
-                                            <h4 className="price">FREE</h4>
-                                        </div>
-                                        <ul className="features">
-                                            <li className="true">Ad free </li>
-                                            <li className="true">7 Days Period</li>
-                                            <li className="true">Easy Access</li>
-                                            <li className="true">Upgrade facility </li>
-                                            <li className="true">Quick after SignUp</li>
-                                            <li className="false">No Pause and Reuse</li>
-                                            <li className="false">5 songs</li>
-                                            <li className="false">No Cancellation</li>
-                                        </ul>
-                                        <div className="btn-box">
-                                            <a href='#' className="theme-btn disabled">Free Plan</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                {pricingFree}
 
 
                                 <div className="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="400ms">

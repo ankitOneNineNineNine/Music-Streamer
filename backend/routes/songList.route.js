@@ -17,6 +17,19 @@ router.get('/', function (req, res, next) {
     })
 
 })
+router.get('/:id', function (req, res, next) {
+    songsArray.findOne({_id: req.params.id}, function (err, songs) {
+        if (err) {
+            return next(err);
+        }
+        if (!songs) {
+            next()
+        }
+        res.status(200).json(songs);
+
+    })
+
+})
 router.route('/')
     .post(uploadSongImage.array('img'), function (req, res, next) {
         var newSong = new songsArray({});

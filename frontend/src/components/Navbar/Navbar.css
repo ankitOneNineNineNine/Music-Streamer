@@ -1,0 +1,14 @@
+.dropdown-menu{
+    left: -200px;
+    width: 300px;
+    right: 20px;
+    top: 50px;
+}
+@media only screen and (max-width: 600px) {
+    .dropdown-menu{
+        left: 0;
+        width: 300px;
+        right: 20px;
+        top: 50px;
+    }
+}

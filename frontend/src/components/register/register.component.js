@@ -2,6 +2,7 @@ import React from 'react'
 import './register.component.css'
 import httpRequest from '../BackEndCall/httpRequest';
 import { Link, Route, NavLink } from 'react-router-dom'
+import icon from './../Navbar/bootstrap-solid.svg'
 const defaultForm = {
     fullName: null,
     email: null,
@@ -177,9 +178,11 @@ class Register extends React.Component {
                     <div className="row">
                         <div className="col-lg-3 col-md-2"></div>
                         <div className="col-lg-6 col-md-8 login-box">
-                            <div className="col-lg-12 login-key">
-                                <i className="fa fa-key" aria-hidden="true"></i>
-                            </div>
+                              
+                        <NavLink className="navbar-brand white mt5" to='/'>
+                                <img src={icon} width="50" height="50" className="d-inline-block align-top" alt="" />
+                                <span style={{ fontSize: 'xx-large' }}>LOTIFY</span>
+                            </NavLink>
                             <div className="col-lg-12 login-title">
                                 REGISTER
                              </div>

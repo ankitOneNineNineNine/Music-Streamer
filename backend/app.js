@@ -12,9 +12,9 @@ var util = require('util');
 var authenticate = require('./middlewares/authenticate')
 var userRoute = require('./routes/user.route')
 var songsRoute = require('./routes/songList.route')
+var showEmotion = require('./faceAnalysis/face')
 
 require('./db');
-
 var app = express();
 // var jsmediatags = require("jsmediatags");
 // new jsmediatags.Reader("./songs/Imagine Dragons - Believer.mp3")
@@ -33,12 +33,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/songs',  express.static(path.join(__dirname, 'songs')));
-app.use('/images',  express.static(path.join(__dirname, 'images')));
+app.use('/songs', express.static(path.join(__dirname, 'songs')));
+// app.use('/emotion', showEmotion);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/auth', authRoute)
 app.use('/songs', songsRoute)
-app.use('/user',  authenticate, userRoute)
+app.use('/user', authenticate, userRoute)
+
+
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;

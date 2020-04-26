@@ -26,12 +26,15 @@ const userSchema = new Schema({
     image: [{
         type: String,
     }],
+    coverImage: [{
+        type: String,
+    }],
     planRole: {
         type: Number,
-        enum: [1, 2, 3],
+        enum: [0, 1, 2, 3],
         default: 1
     },
-    recentPlaylist: [{
+    myPlaylist: [{
         type: Schema.Types.ObjectId,
         ref: 'songs'
     }],

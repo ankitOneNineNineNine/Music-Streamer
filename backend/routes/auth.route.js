@@ -45,14 +45,14 @@ function prepareMail(data) {
 
 router.route('/login')
     .post(function (req, res, next) {
-        console.log(req.body.email)
+       
         userModel.findOne({
             email: req.body.email,
 
         })
             .then(function (user) {
                 if (user) {
-                    console.log(user)
+                   
                     var isMatched = hash.verify(req.body.password, user.password)
                     if (isMatched) {
                         var token = jwt.sign({
@@ -60,7 +60,7 @@ router.route('/login')
                             role: user.planRole,
                         }, config.jwtSecret);
                         res.status(200).json({
-                            user: { userName: user.userName,fullName: user.fullName,image: user.image, email: user.email, role: user.planRole },
+                            user: { _id: user._id, userName: user.userName,fullName: user.fullName,image: user.image, email: user.email, role: user.planRole },
                             token: token,
 
                         })
@@ -83,7 +83,7 @@ router.route('/login')
     })
 router.route('/register')
     .post(function (req, res, next) {
-console.log('here')
+
         var newUser = new userModel({});
         newUser.fullName = req.body.fullName;
         newUser.email = req.body.email;
@@ -129,8 +129,8 @@ router.route('/forgot-password')
 
                     }
                     const mailContent = prepareMail(mailData)
-
                     user.passwordResetToken = passwordResetToken;
+               
                     user.passwordResetTokenExpiry = passwordResetExpiry;
                     user.save(function (err, saved) {
                         if (err)
@@ -177,7 +177,7 @@ router.route('/duplicacyCheck')
 
 router.post('/reset-password/:token', function (req, res, next) {
     var token = req.params.token;
-    console.log(token)
+   
     userModel.findOne({
         passwordResetToken: token,
         passwordResetTokenExpiry: {
