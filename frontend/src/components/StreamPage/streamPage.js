@@ -3,16 +3,14 @@ import httpRequest from '../BackEndCall/httpRequest';
 import happy from './sidebar/happy.png'
 import neutral from './sidebar/neutral.png'
 import sad from './sidebar/sad.png'
-import FileSaver, { saveAs } from 'file-saver';
+import FileSaver from 'file-saver';
 import "react-jinke-music-player/assets/index.css";
 import Tilt from 'react-tilt'
-
 import './streamPage.css'
-import { withRouter } from 'react-router-dom';
-import notify from '../../utils/notify';
-
 import AudioPlayer from './audioplayer/audioPlayer'
 import Songpage from './songpage/songpage';
+import { NavLink } from 'react-router-dom';
+import notify from '../../utils/notify';
 
 
 class StreamPage extends React.Component {
@@ -27,12 +25,12 @@ class StreamPage extends React.Component {
             },
             emotionDisplay: false,
             songArray: [],
-            dayMessage: '',
             playlist: [],
             isLoading: true,
             emotionSort: false,
             myPlaylist: [],
-
+            allSongs: true,
+            status: 'disabled'
 
         }
     }
@@ -74,8 +72,24 @@ class StreamPage extends React.Component {
 
         }))
     }
+    savefile = (dopwnloadInfo) => {
+
+        var stringparam = dopwnloadInfo.src.toString()
+        var length = stringparam.length
+        var filename = stringparam.substring(28, length)
+
+        FileSaver.saveAs(stringparam, filename);
+    }
 
     componentDidMount() {
+        httpRequest.get('/user', {}, true)
+            .then(data => {
+                this.setState({
+                    status: data.status
+                })
+
+            })
+            .catch(err => console.log(err))
         httpRequest.get('/songs', {}.true)
             .then(data => {
 
@@ -90,14 +104,6 @@ class StreamPage extends React.Component {
     }
 
 
-    savefile = (dopwnloadInfo) => {
-
-        var stringparam = dopwnloadInfo.src.toString()
-        var length = stringparam.length
-        var filename = stringparam.substring(28, length)
-
-        FileSaver.saveAs(stringparam, filename);
-    }
     onPlay = (songId) => {
         this.setState({
             emotionSort: false,
@@ -119,20 +125,28 @@ class StreamPage extends React.Component {
     songOfMyPlaylist = e => {
         this.setState({
             myPlaylist: [],
+            allSongs: false
         })
         httpRequest.get('/user', {}, true)
             .then(data => {
-                data.myPlaylist.map(songs => {
-                    httpRequest.get(`/songs/${songs}`, {}, true)
-                        .then(data => {
-                            this.setState(prev => ({
-                                myPlaylist: [...prev.myPlaylist, data]
-                            }))
-                        })
+                if (!data.myPlaylist.length)
+                    notify.showInfo('No songs on myPlaylist')
+                data.myPlaylist.map(songs => httpRequest.get(`/songs/${songs}`, {}, true)
+                    .then(data => {
+                        this.setState(prev => ({
+                            myPlaylist: [...prev.myPlaylist, data]
+                        }))
 
-                })
+                    })
+
+                )
             })
             .catch(err => console.log(err))
+    }
+    AllSongs = e => {
+        this.setState({
+            allSongs: true,
+        })
     }
     render() {
         // const songDescription = this.state.songSelected ?
@@ -157,6 +171,7 @@ class StreamPage extends React.Component {
         //     </>
         //     :
         //     null
+
         var songForSongPage = this.state.songArray;
 
         if (this.state.isLoading) {
@@ -182,17 +197,15 @@ class StreamPage extends React.Component {
                         this.state.playlist
                         : (this.state.songArray || []).map(songs => songs))
 
-            var displayTitle = <p className = 'fw9 f2'>ALL SONGS</p>;
+            var displayTitle = <p className='fw9 f2'>ALL SONGS</p>;
             if (this.state.emotionSort) {
                 songForSongPage = playlist
-                displayTitle = <p className = 'fw9 f2'>{emotion.toUpperCase()} SONGS</p>
+                displayTitle = <p className='fw9 f2'>{emotion.toUpperCase()} SONGS</p>
             }
-            
 
 
 
-
-            var status = localStorage.getItem('status')
+            var status = this.state.status
 
             var token = localStorage.getItem('token')
             let contentofIdeal = this.state.emotionDisplay ?
@@ -224,30 +237,46 @@ class StreamPage extends React.Component {
                     </div>
                 </div>
                 : null
+
+        
             if (!token) {
                 var content = <p>Please Log In and Subscribe</p>
             }
+
             else {
-                if (this.state.myPlaylist) {
-                    if (this.state.myPlaylist.length) {
-                        displayTitle = <p className = 'fw9 f2'>MY PLAYLIST</p>
+                if (this.state.myPlaylist && !this.state.allSongs) {
+                              if (this.state.myPlaylist.length) {
+                        displayTitle = <p className='fw9 f2'>MY PLAYLIST</p>
                         var songLists = <Songpage songs={this.state.myPlaylist} songPlay={this.onPlay} />
                     }
                     else {
+
                         var songLists = <Songpage songs={songForSongPage} songPlay={this.onPlay} />
                     }
                 }
+                else if (this.state.allSongs) {
+                  
+                    var songLists = <Songpage songs={songForSongPage} songPlay={this.onPlay} />
+                }
+       
                 if (status === 'enabled') {
                     var content =
 
                         <div className='tc pa0 mt0' style={{ zIndex: '-1' }}>
+                            <div class="btn-group" role="sort" aria-label="Basic example">
+                                <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style={{ marginTop: '-10rem', height: 'min-content' }}>
+                                    Emotion Sort
+                        </button>
+                                <button type="button" onClick={this.songOfMyPlaylist} className="btn btn-primary" data-target="" style={{ marginTop: '-10rem', height: 'min-content' }}>
+                                    My Playlist
+                        </button>
+                                <button type="button" onClick={this.AllSongs} className="btn btn-primary" data-target="" style={{ marginTop: '-10rem', height: 'min-content' }}>
+                                    All Songs
+                        </button>
 
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style={{ marginTop: '-10rem' }}>
-                                Emotion Sort
-                        </button>
-                            <button type="button" onClick={this.songOfMyPlaylist} className="btn btn-primary" data-toggle="modal" data-target="" style={{ marginTop: '-10rem' }}>
-                                My Playlist
-                        </button>
+                            </div>
+
+
                             <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div className="modal-dialog" role="document">
                                     <div className="modal-content">
@@ -264,8 +293,8 @@ class StreamPage extends React.Component {
                                                         Select your choice
                                                  </button>
                                                     <div className="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                        <a className="dropdown-item link pointer" onClick={this.emotionShow}>Emoji Selector</a>
-                                                        <a className="dropdown-item link pointer" onClick={this.faceShow}>Face Analysis</a>
+                                                        <NavLink to='#' className="dropdown-item link pointer bg-white" style={{ color: 'black' }} onClick={this.emotionShow}>Emoji Selector</NavLink>
+                                                        <NavLink to='#' className="dropdown-item link pointer bg-white" style={{ color: 'black' }} onClick={this.faceShow}>Face Analysis</NavLink>
                                                     </div>
                                                 </div>
                                             </div>
@@ -278,9 +307,10 @@ class StreamPage extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                        {displayTitle}
+                            {displayTitle}
                             {songLists}
                             <AudioPlayer playlist={playlist} savefile={this.savefile} />
+
                         </div>
 
 
@@ -298,6 +328,7 @@ class StreamPage extends React.Component {
         return (
             <div style={{ marginTop: '200px' }}>
                 {content}
+
             </div>
 
         )

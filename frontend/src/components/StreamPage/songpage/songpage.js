@@ -1,9 +1,10 @@
 import React from 'react'
-import StreamPage from '../streamPage';
+
 import httpRequest from '../../BackEndCall/httpRequest';
 import './songpage.css'
-import { NavLink } from 'react-router-dom';
+
 import notify from '../../../utils/notify';
+import { NavLink } from 'react-router-dom';
 function lengthCalc(array) {
     if (array)
         return array.length
@@ -33,15 +34,14 @@ class Songpage extends React.Component {
     componentDidMount() {
         httpRequest.get('/user', {}, true)
             .then(data => {
-                data.myPlaylist.map(songs => {
-                    httpRequest.get(`/songs/${songs}`, {}, true)
-                        .then(data => {
-                            this.setState(prev => ({
-                                myPlaylist: [...prev.myPlaylist, data]
-                            }))
-                        })
+                data.myPlaylist.map(songs => httpRequest.get(`/songs/${songs}`, {}, true)
+                    .then(data => {
+                        this.setState(prev => ({
+                            myPlaylist: [...prev.myPlaylist, data]
+                        }))
+                    })
 
-                })
+                )
             })
             .catch(err => console.log(err))
     }
@@ -78,15 +78,14 @@ class Songpage extends React.Component {
                 notify.showSuccess(data)
                 httpRequest.get('/user', {}, true)
                     .then(data => {
-                        data.myPlaylist.map(songs => {
-                            httpRequest.get(`/songs/${songs}`, {}, true)
-                                .then(data => {
-                                    this.setState(prev => ({
-                                        myPlaylist: [...prev.myPlaylist, data]
-                                    }))
-                                })
+                        data.myPlaylist.map(songs => httpRequest.get(`/songs/${songs}`, {}, true)
+                            .then(data => {
+                                this.setState(prev => ({
+                                    myPlaylist: [...prev.myPlaylist, data]
+                                }))
+                            })
 
-                        })
+                        )
                     })
                     .catch(err => console.log(err))
             })
@@ -134,7 +133,7 @@ class Songpage extends React.Component {
 
     }
     handlePaginationNumbers = e => {
-        var currentPageNumber = this.state.currentIndex
+
         var valueClicked = e.target.attributes.getNamedItem('value').value;
 
         this.setState({
@@ -166,7 +165,7 @@ class Songpage extends React.Component {
         })
     }
     render() {
-        const currentIndex = this.state.currentIndex
+        // const currentIndex = this.state.currentIndex
 
         const songs = (this.props.songs || []).map((song, i) => {
 
@@ -188,11 +187,11 @@ class Songpage extends React.Component {
                     <div key={song._id} className='df ma3 pa2 shadow br3 ba b--green grow w-200'>
                         {icon}
                         {Ficon}
-                        <a href="#" style={{ backgroundImage: `url(${image})` }} className="link mw5 dt center hide-child br2 cover bg-center di">
+                        <NavLink to="#" style={{ backgroundImage: `url(${image})` }} className="link mw5 dt center hide-child br2 cover bg-center di">
                             <span to='' value={song._id} className=" bg-dark white dtc v-mid w-100 h-100  child bg-black-40 pa5">
                                 <i value={song._id} onClick={this.handlePlay} className=' fa fa-4x fa-play-circle lh-copy icon' />
                             </span>
-                        </a> <span className='f2'>{song.name}</span><span className='db f4'>{song.singer}</span>
+                        </NavLink> <span className='f2'>{song.name}</span><span className='db f4'>{song.singer}</span>
 
 
 
@@ -206,7 +205,7 @@ class Songpage extends React.Component {
         var array = Array.from({ length: Math.ceil(length / 10) }, () => Math.floor(Math.random() * 40));
         var pagination = array.map((item, i) => {
             return (
-                <li key={i} className="page-item"><a className="page-link" onClick={this.handlePaginationNumbers} value={i + 1} href="#">{i + 1}</a></li>
+                <li key={i} className="page-item"><NavLink to = '#' className="page-link" onClick={this.handlePaginationNumbers} value={i + 1}>{i + 1}</NavLink></li>
 
             )
 
@@ -231,16 +230,16 @@ class Songpage extends React.Component {
 
             })
 
-        console.log(filteredSong)
+        
 
-        var array = this.props.songs.filter(songs => {
+        array = this.props.songs.filter(songs => {
             return (songs)
         })
 
-        var array = Array.from({ length: Math.ceil(length / 10) }, () => Math.floor(Math.random() * 40));
+        array = Array.from({ length: Math.ceil(length / 10) }, () => Math.floor(Math.random() * 40));
         var paginationforFiltered = array.map((item, i) => {
             return (
-                <li className="page-item"><a className="page-link" onClick={this.handlePaginationNumbers} value={i + 1} href="#">{i + 1}</a></li>
+                <li className="page-item"><NavLink to = '#' className="page-link" onClick={this.handlePaginationNumbers} value={i + 1} >{i + 1}</NavLink></li>
 
             )
 
@@ -341,7 +340,7 @@ class Songpage extends React.Component {
                     <button type="button" value='all' onClick={this.handlePlay} className="mt5 clear btn btn-outline-primary br-pill">Play All</button>
                 </div>
                 <div className="md-form active-pink active-pink-2 ma-3 pa3 item-start">
-                    <input className="form-control bg-light center" type="text" onChange={this.searchEnter} style={{ width: '500px', color: 'gray' }} placeholder="Search with a song name, artist name here" name='search' aria-label="Search" />
+                    <input className="form-control bg-light tc center" type="text" onChange={this.searchEnter} style={{ width: '80%', color: 'gray' }} placeholder="Search || song name or artist" name='search' aria-label="Search" />
                     <div class="select center flex justify-center gray">
                         <select onChange={this.searchBy} defaultValue='name' name="format" id="format">
                             <option value="name">Search by Name</option>
@@ -357,7 +356,7 @@ class Songpage extends React.Component {
                     {allSongs}
 
                 </div>
-            
+
             </div>
             :
             <div style={{ marginTop: '-6em' }} >

@@ -1,7 +1,7 @@
 import React from 'react'
 import './homepage.css'
 import './homepage2.css'
-import icon from './../Navbar/bootstrap-solid.svg'
+
 import { NavLink } from 'react-router-dom'
 import Footer from './../footer/footer'
 import httpRequest from './../BackEndCall/httpRequest'
@@ -46,12 +46,12 @@ class HomePage extends React.Component {
                         <div className="col-md-6">
                             <div className="row">
                                 <div className="col-sm-6">
-                                    <img className=" pa0 center-block" src="//www.scdn.co/i/generic/premium-img1.jpg" />
+                                    <img alt = 'first' className=" pa0 center-block" src="//www.scdn.co/i/generic/premium-img1.jpg" />
                                     <h3 className="mt2">Listen everywhere</h3>
                                     <p className='mt0'>Blotify works on your computer, mobile, tablet and TV.</p>
                                 </div>
                                 <div className="col-sm-6">
-                                    <img className="center-block" src="//www.scdn.co/i/generic/premium-img2.jpg" />
+                                    <img alt= 'second' className="center-block" src="//www.scdn.co/i/generic/premium-img2.jpg" />
                                     <h3 className="mt2">Unlimited, ad-free music</h3>
                                     <p>No ads. No interruptions. Just music.</p>
                                 </div>
@@ -60,12 +60,12 @@ class HomePage extends React.Component {
                         <div className="col-md-6">
                             <div className="row">
                                 <div className="col-sm-6">
-                                    <img className="center-block" src="//www.scdn.co/i/generic/premium-img3.jpg" />
+                                    <img alt = 'third' className="center-block" src="//www.scdn.co/i/generic/premium-img3.jpg" />
                                     <h3 className="mt2">Download music &amp; listen offline</h3>
                                     <p>Keep playing, even when you don't have a connection.</p>
                                 </div>
                                 <div className="col-sm-6">
-                                    <img className="center-block" src="//www.scdn.co/i/generic/premium-img4.jpg" />
+                                    <img alt = 'fourth' className="center-block" src="//www.scdn.co/i/generic/premium-img4.jpg" />
                                     <h3 className="mt2">Premium sounds better</h3>
                                     <p>Get ready for incredible sound quality.</p>
                                 </div>
@@ -75,6 +75,7 @@ class HomePage extends React.Component {
                 </div>
 
                 <Footer />
+                
             </>
         )
     }

@@ -1,11 +1,10 @@
 import React from 'react';
-import { NavLink, Route, Redirect, BrowserRouter, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import icon from './bootstrap-solid.svg'
-import { GoogleLogout } from 'react-google-login';
 import notify from './../../utils/notify'
 import { Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import { deepOrange } from '@material-ui/core/colors';
 import httpRequest from '../BackEndCall/httpRequest';
 import './Navbar.css'
 
@@ -41,7 +40,7 @@ function Navbar(props) {
     if (token) {
 
 
-        var allImg = 'http://localhost:1250/uploads/users/images/'
+        var allImg = 'http://localhost:1250/uploads/users/profileImages/'
         image = JSON.parse(localStorage.getItem('user')).image[0];
         profileUrl = `${allImg}${image}`
 
@@ -54,18 +53,18 @@ function Navbar(props) {
             }
             else {
                 const profileUrl = JSON.parse(localStorage.getItem('user')).fullName.charAt(0)
-                var avatar = <Avatar className={classes.orange}>{profileUrl}</Avatar>
+                avatar = <Avatar className={classes.orange}>{profileUrl}</Avatar>
             }
 
         }
         else {
             const profileUrl = JSON.parse(localStorage.getItem('user')).fullName.charAt(0)
-            var avatar = <Avatar className={classes.orange}>{profileUrl}</Avatar>
+            avatar = <Avatar className={classes.orange}>{profileUrl}</Avatar>
         }
 
     }
     var links = token ?
-        <div class="btn-group">
+        <div className="btn-group">
             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div className='dib'>
 
@@ -74,17 +73,17 @@ function Navbar(props) {
 
 
             </a>
-            <div class="dropdown-menu ">
-                <div class="py-4 px-3 mb-4 bg-light" style={{ width: '300px' }}>
-                    <div class="media d-flex align-items-center">{avatar}
-                        <div class="media-body ma3">
-                            <h4 class="m-0">{JSON.parse(localStorage.getItem('user')).fullName}</h4>
-                            <p class="font-weight-light text-muted mb-0">{JSON.parse(localStorage.getItem('user')).email}</p>
+            <div className="dropdown-menu ">
+                <div className="py-4 px-3 mb-4 bg-light" style={{ width: '300px' }}>
+                    <div className="media d-flex align-items-center">{avatar}
+                        <div className="media-body ma3">
+                            <h4 className="m-0">{JSON.parse(localStorage.getItem('user')).fullName}</h4>
+                            <p className="font-weight-light text-muted mb-0">{JSON.parse(localStorage.getItem('user')).email}</p>
                         </div>
                     </div>
                 </div>
                 <NavLink className="dropdown-item fr" to="/profile">My Account</NavLink>
-                <NavLink className="dropdown-item bg-light" style= {{color: 'black'}} onClick={logout} to="/">Logout</NavLink>
+                <NavLink className="dropdown-item bg-light" style={{ color: 'black' }} onClick={logout} to="/">Logout</NavLink>
             </div>
         </div>
 
@@ -93,11 +92,11 @@ function Navbar(props) {
 
         <ul className="navbar-nav">
             <li className="nav-item my-2 my-lg-0">
-                <NavLink className='nav-link' to='/register'> Register</NavLink>
+                <NavLink className='nav-link f4' to='/register'> Register</NavLink>
             </li>
 
             <li className="nav-item">
-                <NavLink className='nav-link' to='/login'> Login</NavLink>
+                <NavLink className='nav-link f4' to='/login'> Login</NavLink>
             </li>
         </ul>
 
@@ -105,7 +104,7 @@ function Navbar(props) {
     var link2 = localStorage.getItem('token') ?
         <>
             <li className="nav-item">
-                <NavLink className='nav-link' to='/stream'> Music Player </NavLink>
+                <NavLink className='nav-link f4' to='/stream'> Music Player </NavLink>
             </li>
 
         </>
@@ -114,7 +113,7 @@ function Navbar(props) {
     return (
         <div>
 
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark pa1" style={{
                 position: 'fixed', top: '0', width: '100%', zIndex: '1'
             }}>
                 <NavLink className="navbar-brand" to='/'>
@@ -135,13 +134,13 @@ function Navbar(props) {
                     >
 
                         <li className="nav-item">
-                            <NavLink className='nav-link' to='/'>Home</NavLink>
+                            <NavLink className='nav-link f4' to='/'>Home</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className='nav-link' to='/help'>Help</NavLink>
+                            <NavLink className='nav-link f4' to='/help'>Help</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className='nav-link' to='/plans'> Plans</NavLink>
+                            <NavLink className='nav-link f4' to='/plans'> Plans</NavLink>
                         </li>
                         {link2}
 

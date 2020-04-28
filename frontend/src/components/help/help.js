@@ -1,8 +1,23 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
-import icon from './../Navbar/bootstrap-solid.svg'
+
 import Footer from './../footer/footer'
+import AudioPlayer from '../StreamPage/audioplayer/audioPlayer'
+var searchSong;
 function Help(){
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    const searchEnter = (e) => {
+
+ 
+            searchSong=  e.target.value
+        
+    }
+    const handleKeyDown = (e) =>{
+        console.log(searchSong)
+    }
+    console.log(searchSong)
     return (
         <>
             <div className="jumbotron br0 white bg-red">
@@ -14,7 +29,7 @@ function Help(){
     
     For all but the most urgent issues, we ask you to visit our support site or community for answers to your question. Thank you in advance for understanding.
     
-    2020-03-22 11:56 GMT
+    {date} {time}
                 </p>
 
 
@@ -22,9 +37,10 @@ function Help(){
             </div>
             <div className="jumbotron br0 black bg-light">
                 <h1 className="center">What can we Help you with??</h1>
-                <p className="tc f3">Questions?</p>
+                <p className="tc f3">Choose Your Topic Below</p>
                 <hr className="my-4" />
-                <input type="text" class="form-control" id="search" placeholder="Search" autocomplete="off"></input>
+                
+                <input className="form-control bg-light center tc" type="text" onChange={searchEnter} style={{ width: '100%', color: 'gray' }} placeholder="Ask your queries" name='search' aria-label="Search"  onKeyDown={handleKeyDown} />
                 <p>Download HOWTO GUIDE pdf from <NavLink to = ''>HERE</NavLink></p>
 
          {/* {carousel}  HOWTO VIDEO, PLAYLIST*/}
@@ -32,6 +48,7 @@ function Help(){
 
             
   <Footer/>
+  
         </>
 
     )

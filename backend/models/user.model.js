@@ -26,7 +26,7 @@ const userSchema = new Schema({
     image: [{
         type: String,
     }],
-    coverImage: [{
+    coverImg: [{
         type: String,
     }],
     planRole: {

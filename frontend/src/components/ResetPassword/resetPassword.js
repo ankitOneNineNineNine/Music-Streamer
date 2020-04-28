@@ -1,7 +1,7 @@
 import React from 'react';
 import './../register/register.component.css'
 import httpRequest from '../BackEndCall/httpRequest';
-import { Link, Route, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import notify from '../../utils/notify';
 import icon from './../Navbar/bootstrap-solid.svg'
 

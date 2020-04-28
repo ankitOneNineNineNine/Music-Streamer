@@ -1,6 +1,6 @@
 import React from 'react'
 import './login.component.css'
-import { Link, Route, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import httpRequest from '../BackEndCall/httpRequest';
 import notify from './../../utils/notify'
 import icon from './../Navbar/bootstrap-solid.svg'

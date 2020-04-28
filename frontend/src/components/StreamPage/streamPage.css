@@ -6,7 +6,9 @@
     height: 200px;
     margin: 0 auto;
   }
-
+  .dropdown-item:hover{
+    background-color: gray;
+  }
   .zoom:hover {
     -ms-transform: scale(1.5);
     /* IE 9 */

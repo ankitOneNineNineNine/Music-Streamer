@@ -1,7 +1,7 @@
 import React from 'react'
 import './register.component.css'
 import httpRequest from '../BackEndCall/httpRequest';
-import { Link, Route, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import icon from './../Navbar/bootstrap-solid.svg'
 const defaultForm = {
     fullName: null,

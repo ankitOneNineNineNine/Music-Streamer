@@ -7,7 +7,7 @@ const options = {
     theme: 'dark',
     clearPriorAudioLists: true,
     autoPlayInitLoadPlayList: true,
-   
+    
     preload: true,
     remember: true,
     remove: false,
@@ -34,13 +34,13 @@ const options = {
     autoHiddenCover: false,
     spaceBar: false,
     onAudioDownload() {
-        notify.showSuccess('audio downloaded')
+        notify.showSuccess('Download Audio')
     },
 
 
 }
-var audioInstance = null
 export default function AudioPlayer({playlist, savefile}){
+    var audioInstance = null;
     return (
         <ReactJkMusicPlayer {...options} audioLists={playlist} getAudioInstance={instance => audioInstance = instance} customDownloader={savefile} />
     )

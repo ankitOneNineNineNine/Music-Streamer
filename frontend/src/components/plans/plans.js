@@ -1,9 +1,10 @@
 import React from 'react';
 import './plans.css'
-import { render } from '@testing-library/react';
 import httpRequest from './../BackEndCall/httpRequest'
 import Footer from '../footer/footer';
 import notify from '../../utils/notify';
+import { NavLink } from 'react-router-dom';
+import AudioPlayer from '../StreamPage/audioplayer/audioPlayer';
 class Plans extends React.Component {
     constructor() {
         super();
@@ -34,20 +35,20 @@ class Plans extends React.Component {
 
             var roleNumber = JSON.parse(localStorage.getItem('user')).role
             if (roleNumber === 1) {
-                var roleContent = <h2>Your current plan is free package.  {this.state.dayMessage}</h2>;
+                 var roleContent = <h2>Your current plan is free package.  {this.state.dayMessage}</h2>;
             }
             else if (roleNumber === 2) {
-                var roleContent = <h2>Your current plan is monthly subscription.  {this.state.dayMessage}</h2>
+                 roleContent = <h2>Your current plan is monthly subscription.  {this.state.dayMessage}</h2>
             }
             else if (roleNumber === 3) {
-                var roleContent = <h2>Your current plan is yearly subscription.  {this.state.dayMessage}</h2>
+                 roleContent = <h2>Your current plan is yearly subscription.  {this.state.dayMessage}</h2>
             }
             else if (roleNumber === 0) {
 
             }
 
 
-            if (roleNumber !== 0) {
+            if (roleNumber !== 0 || !roleNumber) {
                 var pricingFree = <div className="pricing-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp ">
                     <div className="inner-box">
                         <div className="icon-box">
@@ -68,7 +69,7 @@ class Plans extends React.Component {
                             <li className="false">No Cancellation</li>
                         </ul>
                         <div className="btn-box">
-                            <a href='#' className="theme-btn disabled">Free Plan</a>
+                            <NavLink to='#' className="theme-btn disabled">Free Plan</NavLink>
                         </div>
                     </div>
                 </div>
@@ -153,6 +154,7 @@ class Plans extends React.Component {
                     </div>
                 </section>
                 <Footer />
+                
             </>
         )
     }

@@ -25,6 +25,8 @@ function map_user_request(user, userDetails) {
         user.status = userDetails.status
     if (userDetails.image)
         user.image.unshift(userDetails.image)
+    if (userDetails.coverImg)
+        user.coverImg.unshift(userDetails.coverImg)
     if (userDetails.myPlaylist) {
         var sid = userDetails.myPlaylist.myPlaylist;
         user.myPlaylist.push(sid)
@@ -74,8 +76,8 @@ router.route('/uploadPhoto')
 
         }
     })
-    router.route('/uploadCoverPhoto')
-    .post(upload.single('img'), function (req, res, next) {
+router.route('/uploadCoverPhoto')
+    .post(uploadCover.single('img'), function (req, res, next) {
         console.log(req.files)
         var mimeType = req.file.mimetype.split('/')[0];
 
@@ -94,20 +96,17 @@ router.route('/uploadPhoto')
         else {
             var filename = req.file.filename
 
-            req.body.image = filename
+            req.body.coverImg = filename
 
             user = req.loggedInUser
-            var updateProfileUser = map_user_request(user, req.body)
-
-            updateProfileUser.save(function (err, uploaded) {
+                var updateCoverUser = map_user_request(user, req.body)
+      
+            updateCoverUser.save(function (err, uploaded) {
                 if (err) {
                     return next(err);
                 }
-                var userDetails123 = { _id: user._id, userName: user.userName, fullName: user.fullName, image: user.image, email: user.email, role: user.planRole }
-                console.log(userDetails123)
-                res.status(200).json({
-                    user: userDetails123
-                })
+
+                res.status(200).json(uploaded)
 
             })
 
@@ -422,7 +421,7 @@ router.route('/RoleCheck')
                                     if (err) {
                                         return next(err);
                                     }
-                                    res.json(updated);
+                                
                                 })
                                 res.json({
                                     msg: 'Your subscription has ended',

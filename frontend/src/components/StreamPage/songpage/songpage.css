@@ -9,9 +9,8 @@
 }
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 1px;
 }
-
 
 
 /* Handle */
@@ -20,10 +19,6 @@
     border-radius: 10px;
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #b30000;
-}
 
 .grid-container {
     display: grid;
