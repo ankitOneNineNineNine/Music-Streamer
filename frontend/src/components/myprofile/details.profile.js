@@ -30,12 +30,18 @@ class Profile extends React.Component {
 
     }
     componentDidMount() {
+        this.setState({
+            uploadCoverRecent: false,
+        })
         httpRequest.get(`/user/`, {}, true)
             .then(data => {
-                this.setState({
-                    coverImg: data.coverImg,
+                if (data.coverImg)
+                    this.setState({
+                        coverImg: data.coverImg,
 
-                })
+                    })
+
+
                 data.myPlaylist.map(songs => httpRequest.get(`/songs/${songs}`, {}, true)
                     .then(data => {
                         this.setState(prev => ({
@@ -123,13 +129,14 @@ class Profile extends React.Component {
                 .catch(err => console.log(err))
         }
     }
+    uploadCoverImg = () => {
+        this.refs.fileUploaderCover.click();
+    }
     uploadProfileImg = () => {
 
         this.refs.fileProfile.click()
     }
-    uploadCoverImg = () => {
-        this.refs.fileUploaderCover.click();
-    }
+
     profileImgHere = (e) => {
 
         this.setState({
@@ -180,9 +187,6 @@ class Profile extends React.Component {
         e.preventDefault();
         httpRequest.upload("POST", url, {}, this.state.uploadedCoverImg)
             .then((data) => {
-                this.setState({
-                    uploadCoverRecent: false,
-                })
                 notify.showSuccess('Successfully UPDATED')
                 this.props.history.push('/profile')
 
@@ -202,18 +206,18 @@ class Profile extends React.Component {
         var coverImg = 'http://localhost:1250/uploads/users/coverImages/'
         var profileImg = JSON.parse(localStorage.getItem('user')).image
         if (token) {
-            if (profileImg)
+            if (profileImg.length)
                 profileUrl = `${allImg}${profileImg[[3]]}`
-            if (this.state.coverImg)
+            if (this.state.coverImg.length)
                 coverUrl = `${coverImg}${this.state.coverImg[0]}`
         }
         if (this.state.infoDisplay === 'pictures') {
-            var detailProfile = profileImg.map(images => {
+            var detailProfile = (profileImg || []).map(images => {
                 return (
                     <img src={`${allImg}${images}`} className='di pa2 grow br3' width='250px' />
                 )
             })
-            var detailCover = this.state.coverImg.map(images => {
+            var detailCover = (this.state.coverImg || []).map(images => {
                 return (
                     <img src={`${coverImg}${images}`} width='250px' className='di pa2 grow br3' />
                 )
@@ -221,6 +225,7 @@ class Profile extends React.Component {
 
 
         }
+        console.log(coverUrl)
         if (this.state.infoDisplay === 'playlists') {
             var playlistInfo = this.state.myPlaylist.map((song, i) => {
 
@@ -228,17 +233,17 @@ class Profile extends React.Component {
 
                 return (
                     <>
-                        <ul className='dib ma3 pa2 shadow br3 ba b--green bg-light-blue grow'>
-                            <i onClick={() => this.removeFromPlaylist(song._id, i)} data-toggle='tooltip' title='Delete from my playlist' className={"plusIcon fa fa-3x fa-trash red"} />
+                        <div className='songPageBody grid-container br3 ma2 grow br3 shadow '>
+                            <i onClick={() => this.removeFromPlaylist(song._id, i)} data-toggle='tooltip' title='Delete from my playlist' className={"deleteIcon fa fa-2x fa-trash red"} />
                             <li key={i} href="#" style={{ backgroundImage: `url(${image})` }} className="link grid-content mw5 dt center hide-child br2 cover bg-center di">
                                 <span to='' value={song._id} className=" bg-dark white dtc v-mid w-100 h-100  child bg-black-40 pa5">
-                                    <i value={song._id} onClick={this.handlePlay} className=' fa fa-4x fa-play-circle lh-copy icon' />
+                                        
                                 </span>
-                            </li> <span className='f2 di '>{song.name}</span><span className='db f4'>{song.singer}</span>
+                            </li> <span className='f2 di '>{song.name}</span><span className='db f3'>{song.singer}</span>
 
 
+                        </div>
 
-                        </ul>
 
                     </>
                 )
@@ -317,7 +322,7 @@ class Profile extends React.Component {
                     <h1 className='tc'>My Playlist Songs</h1>
                     <div className='ma4 mt0 dib ' >
 
-                        <p >{playlistInfo}</p>
+                        <p>{playlistInfo}</p>
                     </div>
 
                 </div>
@@ -396,8 +401,8 @@ class Profile extends React.Component {
 
                             </span>
 
-                            <input className="file-upload" onChange={this.profileImgHere} ref="fileProfile" type="file" accept="image/*" />
-                                
+                                <input className="file-upload" onChange={this.profileImgHere} ref="fileProfile" type="file" accept="image/*" />
+
 
 
                             </NavLink>
@@ -406,23 +411,17 @@ class Profile extends React.Component {
                                 {editNameIcon}
 
                             </div>
-                            <p className="f3 bg-dark white">{JSON.parse(localStorage.getItem('user')).email}</p>
+
 
                         </div>
                     </div>
                     <hr className="my-1" />
 
-                    <ul className="social-icons center inline tc center">
-                        <li><a href="https://www.facebook.com" className="social-icon"> <i className="fa fa-facebook"></i></a></li>
-                        <li><a href="https://www.twitter.com" className="social-icon"> <i className="fa fa-twitter"></i></a></li>
-                        <li><a href="https://www.instagram.com" className="social-icon"> <i className="fa fa-instagram"></i></a></li>
-
-                    </ul>
 
                     <NavLink to='/updateProfile'
                         style={{
                             position: ' relative',
-                            top: ' -12vh',
+                            top: ' -3vh',
 
 
                         }}
@@ -430,7 +429,7 @@ class Profile extends React.Component {
                         className="btn btn-primary btn-sm fr" href="#" role="button">Change Password</NavLink>
                     <NavLink to='#' onClick={() => this.submit()}
                         style={{
-                            top: '-12vh',
+                            top: '-3vh',
                             position: 'relative',
 
                         }}
@@ -467,6 +466,7 @@ class Profile extends React.Component {
                 </div>
 
                 {detailContent}
+
 
             </>
 

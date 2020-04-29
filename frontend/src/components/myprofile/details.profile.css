@@ -22,9 +22,17 @@
     display: none;
 }
 
-.text{
+.text {
     color: white;
 
     mix-blend-mode: difference;
 
+}
+
+.deleteIcon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    right: 0px;
+    top: 0px;
 }

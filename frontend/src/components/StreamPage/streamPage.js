@@ -149,29 +149,33 @@ class StreamPage extends React.Component {
         })
     }
     render() {
-        // const songDescription = this.state.songSelected ?
-        //     <>
-        //         <div class="card-body w-100 br3 shadow-5 pa3">
 
-        //             <div className='dib mb2'>
-        //                 <p className='db f2 bg-light shadow'>Now Playing</p>
-        //             </div>
-        //             <div className='dib'>
-        //                 <img src={this.state.songSelected.cover[0]} width='200px' height='auto' />
+        var CurrentSong = JSON.parse(localStorage.getItem('lastPlayStatus')).name || null;
+        var songPlaying = this.state.songArray.filter(songs => songs.name === CurrentSong)
+        var songDescription;
+        if (CurrentSong && songPlaying.length) {
+            songDescription =
+                <>
+                    <p className='di tc f2 bg-light shadow'>Last Played</p>
 
-        //             </div>
+                    <div className='songPageBody grid-container br3 ma2 br3 shadow '>
 
-        //             <div className='dib mb2'>
-        //                 <p className='f1 pa3'>{this.state.songSelected.name}</p>
-        //                 <p className='f2 pa2'>{this.state.songSelected.singer.map(song => song)}</p>
-        //                 <p className='f3 pa1'>{this.state.songSelected.emotion}</p>
+                        <li href="#" style={{ backgroundImage: `url(${songPlaying[0].cover[0]})` }} className="link grid-content mw5 dt center hide-child br2 cover bg-center di">
+                            <span to='' value={songPlaying[0]._id} className=" bg-dark white dtc v-mid w-100 h-100  child bg-black-40 pa5">
 
-        //             </div>
-        //         </div>
-        //     </>
-        //     :
-        //     null
+                            </span>
+                        </li>
+                        <span className='f2 di '>{songPlaying[0].name}</span>
+                        <span className='db f3'>{songPlaying[0].singer}</span>
+                        <span className='db f3'>{songPlaying[0].singer.map(song => song)}</span>
+                        <span className='db f3'>{songPlaying[0].emotion}</span>
 
+                    </div>
+
+                </>
+
+
+        }
         var songForSongPage = this.state.songArray;
 
         if (this.state.isLoading) {
@@ -238,14 +242,14 @@ class StreamPage extends React.Component {
                 </div>
                 : null
 
-        
+
             if (!token) {
                 var content = <p>Please Log In and Subscribe</p>
             }
 
             else {
                 if (this.state.myPlaylist && !this.state.allSongs) {
-                              if (this.state.myPlaylist.length) {
+                    if (this.state.myPlaylist.length) {
                         displayTitle = <p className='fw9 f2'>MY PLAYLIST</p>
                         var songLists = <Songpage songs={this.state.myPlaylist} songPlay={this.onPlay} />
                     }
@@ -255,15 +259,15 @@ class StreamPage extends React.Component {
                     }
                 }
                 else if (this.state.allSongs) {
-                  
+
                     var songLists = <Songpage songs={songForSongPage} songPlay={this.onPlay} />
                 }
-       
+
                 if (status === 'enabled') {
                     var content =
 
                         <div className='tc pa0 mt0' style={{ zIndex: '-1' }}>
-                            <div class="btn-group" role="sort" aria-label="Basic example">
+                            <div className="btn-group mt4" role="sort" aria-label="Basic example">
                                 <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style={{ marginTop: '-10rem', height: 'min-content' }}>
                                     Emotion Sort
                         </button>
@@ -298,6 +302,7 @@ class StreamPage extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
+
                                             {contentofIdeal}
 
                                         </div>
@@ -308,6 +313,7 @@ class StreamPage extends React.Component {
                                 </div>
                             </div>
                             {displayTitle}
+                            {songDescription}
                             {songLists}
                             <AudioPlayer playlist={playlist} savefile={this.savefile} />
 
@@ -327,6 +333,7 @@ class StreamPage extends React.Component {
 
         return (
             <div style={{ marginTop: '200px' }}>
+
                 {content}
 
             </div>

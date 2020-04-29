@@ -32,7 +32,7 @@ function Navbar(props) {
     function logout() {
         localStorage.clear();
         props.history.push('/')
-        notify.showSuccess('Signed Out')
+        notify.showSuccess('Logged Out')
     }
     var token = localStorage.getItem('token')
     var profileUrl;

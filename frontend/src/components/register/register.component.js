@@ -3,6 +3,7 @@ import './register.component.css'
 import httpRequest from '../BackEndCall/httpRequest';
 import { NavLink } from 'react-router-dom'
 import icon from './../Navbar/bootstrap-solid.svg'
+import notify from '../../utils/notify';
 const defaultForm = {
     fullName: null,
     email: null,
@@ -134,7 +135,7 @@ class Register extends React.Component {
             
             httpRequest.post('/auth/register', { body: this.state.data })
                 .then((data) => {
-
+                    notify.showSuccess('Successfully Registered')
                     this.props.history.push('/login')
                 })
                 .catch(err => {
